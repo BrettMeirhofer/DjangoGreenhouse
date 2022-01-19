@@ -1,0 +1,48 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="refresh" content="180">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'Sensors/js/update_sensor_status.js' %}"></script>
+    <style>
+        h2 {
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+<input type="hidden" id="sensor_data" data-url="{% url 'sensor_data'%}" />
+<input type="hidden" id="temp_series" data-url="{% url 'temp_series'%}" />
+<input type="hidden" id="humd_series" data-url="{% url 'humd_series'%}" />
+<input type="hidden" id="water_series" data-url="{% url 'water_series'%}" />
+<input type="hidden" id="heater_series" data-url="{% url 'heater_series'%}" />
+    <div>
+        <h1> Greenhouse Status</h1>
+        <div>
+            <h2>Temperature: </h2>
+            <h2 id="temp" >50C / 100F</h2>
+        </div>
+        <div>
+            <h2>Humidity: </h2>
+            <h2 id="humd">50%</h2>
+        </div>
+            <h2>Water Level: </h2>
+            <h2 id="water">70%</h2>
+        </div>
+        <div>
+            <h2>Heater: </h2>
+            <h2 id="heater">OFF</h2>
+        </div>
+        <canvas id="chart1"></canvas>
+        <canvas id="chart2"></canvas>
+        <canvas id="chart3"></canvas>
+        <canvas id="chart4"></canvas>
+    </div>
+
+</body>
+</html>
