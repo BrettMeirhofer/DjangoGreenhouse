@@ -14,9 +14,6 @@ import pytz
 from django.utils import timezone
 
 
-
-
-@csrf_exempt
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
@@ -40,7 +37,6 @@ def upload_temp_reading(request):
     return HttpResponse("Success")
 
 
-@csrf_exempt
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
