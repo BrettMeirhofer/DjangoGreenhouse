@@ -42,15 +42,6 @@ else:
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-oo0p6tz##k#s!98+&^0(_rkal4+yfiiep%=*kdx)=_%s6h5aad'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ["192.168.1.21"]
-
-
 # Application definition
 
 INSTALLED_APPS = [
