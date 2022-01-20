@@ -22,8 +22,8 @@ def upload_temp_reading(request):
         temp_data = json.loads(request.body.decode("utf-8"))
         current_time = datetime.datetime.strptime(temp_data["date"], "%Y%m%d%H%M")
         current_time = make_aware(current_time, timezone=pytz.timezone("America/Chicago"))
-        sensors = [1, 1, 2, 2, 3, 3]
-        types = [1, 2, 1, 2, 1, 2]
+        sensors = [2, 2, 3, 3]
+        types = [1, 2, 1, 2]
         reading_objects = []
 
         for index, reading in enumerate(temp_data["readings"]):
