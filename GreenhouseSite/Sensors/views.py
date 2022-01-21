@@ -73,15 +73,15 @@ def greenhouse_status(request):
 
 
 def get_temp_series(request):
-    return sensor_series(1, fah_to_cel)
+    return sensor_series([1, 2], fah_to_cel, file="AvgReadingSeries.sql")
 
 
 def get_humd_series(request):
-    return sensor_series(2)
+    return sensor_series([2, 2], file="AvgReadingSeries.sql")
 
 
 def get_water_series(request):
-    return sensor_series(3)
+    return sensor_series([3])
 
 
 def fah_to_cel(row_value):
@@ -89,8 +89,8 @@ def fah_to_cel(row_value):
     return output
 
 
-def sensor_series(reading_type, y_adjust=None):
-    sql_output = connection_query("AvgTempSeries.sql", [reading_type])
+def sensor_series(parameters, y_adjust=None, file="AvgTempSeries.sql"):
+    sql_output = connection_query(file, parameters)
 
     response_data = {"label": [], "y": []}
     for index, row in enumerate(sql_output):
