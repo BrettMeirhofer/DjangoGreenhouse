@@ -89,7 +89,7 @@ def fah_to_cel(row_value):
     return output
 
 
-def sensor_series(parameters, y_adjust=None, file="AvgReadingSeries.sql"):
+def sensor_series(parameters, y_adjust=None, file="AvgSensorSeries.sql"):
     sql_output = connection_query(file, parameters)
 
     response_data = {"label": [], "y": []}
