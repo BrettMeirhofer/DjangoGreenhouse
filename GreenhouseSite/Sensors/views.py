@@ -52,18 +52,11 @@ def upload_water_reading(request):
 
 
 def request_sensor_data(request):
-    sql_path = path.join(path.dirname(__file__), "AvgSensorData.sql")
-    sql_text = open(sql_path).read()
-    with connection.cursor() as cursor:
-        cursor.execute(sql_text)
-        sql_output = cursor.fetchall()
-
-    json_output = {"readings": []}
-    for item in sql_output:
-        json_output["readings"].append(item[0])
-
-    json_output["heater"] = models.DeviceStatus.objects.filter(device_id=1).order_by("-status_datetime")[0].status
-    print(json_output["heater"])
+    temp = models.Reading.objects.filter(sensor_id=2).filter(reading_type_id=1).latest("reading_datetime").value
+    humd = models.Reading.objects.filter(sensor_id=2).filter(reading_type_id=2).latest("reading_datetime").value
+    water = models.Reading.objects.filter(reading_type_id=3).latest("reading_datetime").value
+    heater = models.DeviceStatus.objects.filter(device_id=1).latest("status_datetime").status
+    json_output = {"readings": [temp, humd, water], "heater": heater}
     return HttpResponse(json.dumps(json_output), content_type="application/json")
 
 
