@@ -49,3 +49,8 @@ class DeviceStatus(models.Model):
     device = models.ForeignKey(Device, on_delete=models.RESTRICT, default=1)
     status = models.BooleanField()
     status_datetime = models.DateTimeField()
+
+
+class DatedImage(models.Model):
+    date = models.DateField()
+    image = models.ImageField(upload_to='images/')

@@ -12,6 +12,7 @@ from django.shortcuts import render
 from django.utils.timezone import make_aware
 import pytz
 from django.utils import timezone
+from . import forms
 
 
 @api_view(['POST'])
@@ -48,6 +49,35 @@ def upload_water_reading(request):
         water_reading = models.Reading(sensor_id=4, value=round(water_data["water_level"]*100, 2), reading_type_id=3,
                                        reading_datetime=current_time)
         water_reading.save()
+    return HttpResponse("Success")
+
+
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def upload_device_status(request):
+    if request.method == "POST":
+        device_data = json.loads(request.body.decode("utf-8"))
+        current_time = datetime.datetime.strptime(device_data["date"], "%Y%m%d%H%M")
+        current_time = make_aware(current_time, timezone=pytz.timezone("America/Chicago"))
+        device_status = models.DeviceStatus(device_id=device_data["device"], status=device_data["status"],
+                                            status_datetime=current_time)
+        device_status.save()
+    return HttpResponse("Success")
+
+
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def upload_image(request):
+    if request.method == "POST":
+        file_uploaded = request.FILES.get('file_uploaded')
+        print(request.FILES)
+        content_type = file_uploaded.content_type
+        image_model = models.DatedImage(image=file_uploaded, date=datetime.datetime.now().date())
+        image_model.save()
+        print(content_type)
+
     return HttpResponse("Success")
 
 
