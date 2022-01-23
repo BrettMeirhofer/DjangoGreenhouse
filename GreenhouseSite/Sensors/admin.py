@@ -24,3 +24,4 @@ class DeviceStatusAdmin(admin.ModelAdmin):
 admin.site.register(models.ReadingType)
 admin.site.register(models.SensorType)
 admin.site.register(models.Device)
+admin.site.register(models.DatedImage)
