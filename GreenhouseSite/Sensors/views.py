@@ -164,3 +164,5 @@ def get_delta_seconds(target_datetime):
     return seconds
 
 
+def gallery_view(request):
+    latest_image = models.DatedImage.objects.latest("date").image.url
