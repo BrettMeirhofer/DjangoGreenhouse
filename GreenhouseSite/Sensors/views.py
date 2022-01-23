@@ -92,7 +92,8 @@ def request_sensor_data(request):
 
 # Displays a page listing realtime information about the greenhouse
 def greenhouse_status(request):
-    return render(request, "admin/sensor_status.html")
+    latest_image = models.Reading.objects.latest("date").image.url
+    return render(request, "admin/sensor_status.html", {'img_url': latest_image})
 
 
 def get_temp_series(request):
@@ -161,3 +162,5 @@ def get_delta_seconds(target_datetime):
     seconds = timezone.now() - timezone.make_aware(target_datetime, tz)
     seconds = round(seconds.seconds, 0)
     return seconds
+
+
