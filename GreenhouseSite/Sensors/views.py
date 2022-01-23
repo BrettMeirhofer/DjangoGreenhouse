@@ -92,7 +92,7 @@ def request_sensor_data(request):
 
 # Displays a page listing realtime information about the greenhouse
 def greenhouse_status(request):
-    latest_image = models.Reading.objects.latest("date").image.url
+    latest_image = models.DatedImage.objects.latest("date").image.url
     return render(request, "admin/sensor_status.html", {'img_url': latest_image})
 
 
