@@ -194,5 +194,5 @@ def get_delta_seconds(target_datetime):
 
 
 def gallery_view(request):
-    urls = [x.image.url for x in models.DatedImage.objects.order_by("date")]
+    urls = [x.image.url for x in models.DatedImage.objects.order_by("-date")]
     return render(request, "admin/gallery.html", {'url_list': urls})
