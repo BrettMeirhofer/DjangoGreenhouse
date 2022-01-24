@@ -1,6 +1,6 @@
 from django.db import models
 from django.apps import apps
-Sensor = apps.get_model('Sensors', 'Sensor')
+from GreenhouseSite.Sensors.models import Sensor
 
 
 class PlantType(models.Model):
