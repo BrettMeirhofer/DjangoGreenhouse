@@ -46,7 +46,7 @@ else:
 
 INSTALLED_APPS = [
     'Sensors.apps.SensorsConfig',
-    'Plants.apps.SensorsConfig',
+    'Plants.apps.PlantsConfig',
     'GreenhouseSite.apps.GreenhouseAdminConfig',
     'rest_framework',
     'rest_framework.authtoken',
