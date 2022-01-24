@@ -1,0 +1,31 @@
+h2 {
+    display: inline;
+}
+
+.navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+.navlink {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navli {
+    float: left;
+}
+
+.active {
+  background-color: #04AA6D;
+}
+
+.navlink:hover:not(.active) {
+  background-color: #111;
+}

@@ -11,6 +11,7 @@ from django.shortcuts import render
 from django.utils.timezone import make_aware
 import pytz
 from django.utils import timezone
+from django.core import exceptions
 
 
 @api_view(['POST'])
@@ -116,8 +117,12 @@ def request_sensor_data(request):
 
 # Displays a page listing realtime information about the greenhouse
 def greenhouse_status(request):
-    latest_image = models.DatedImage.objects.latest("date").image.url
-    return render(request, "admin/sensor_status.html", {'img_url': latest_image})
+    try:
+        latest_image = models.DatedImage.objects.latest("date").image.url
+    except exceptions.ObjectDoesNotExist:
+        latest_image = ""
+
+    return render(request, "admin/dashboard.html", {'img_url': latest_image})
 
 
 def get_temp_series(request):
@@ -189,4 +194,6 @@ def get_delta_seconds(target_datetime):
 
 
 def gallery_view(request):
-    latest_image = models.DatedImage.objects.latest("date").image.url
+    urls = models.DatedImage.objects.order_by("date").values_list("image", flat=True).url
+    print(urls)
+    return render(request, "admin/gallery.html", {'url_list': urls})

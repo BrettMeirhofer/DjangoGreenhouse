@@ -1,0 +1,16 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+{% load static %}
+
+
+{% block extrahead %}{{ block.super }}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'Sensors/js/update_sensor_status.js' %}"></script>
+{% endblock %}
+
+{% block extrabody %}{{ block.super }}
+    {% for url in url_list %}
+        <img src="{{url}}">
+    {% endfor %}
+{% endblock %}

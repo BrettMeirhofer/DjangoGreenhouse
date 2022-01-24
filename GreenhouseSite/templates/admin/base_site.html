@@ -1,0 +1,20 @@
+{% load i18n %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block extrahead %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'Sensors/css/base_site.css' %}">
+    {% endblock %}
+</head>
+<body>
+    {% block extrabody %}
+    <ul class="navbar">
+        <li class="navli"><a class="navlink" href="{% url 'dashboard'%}">Dashboard</a></li>
+        <li class="navli"><a class="navlink" href="{% url 'gallery'%}">Gallery</a></li>
+    </ul>
+    {% endblock %}
+</body>
+</html>
