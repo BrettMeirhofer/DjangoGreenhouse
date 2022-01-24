@@ -8,7 +8,7 @@ import datetime
 
 # Copies a sql file into memory then sends it to the database. Database results are returned
 def connection_query(filename, parameters):
-    sql_path = path.join(path.dirname(__file__), "sql", filename)
+    sql_path = path.join(path.dirname(path.dirname(__file__)), "sql", filename)
     sql_text = open(sql_path).read()
     with connection.cursor() as cursor:
         cursor.execute(sql_text, parameters)
