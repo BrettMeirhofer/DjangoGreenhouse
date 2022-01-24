@@ -36,8 +36,8 @@ def upload_soil_reading(request):
     if request.method == "POST":
         temp_data = json.loads(request.body.decode("utf-8"))
         current_time = get_remote_time(temp_data)
-        sensors = [5]
-        types = [4]
+        sensors = [5, 6, 7]
+        types = [4, 4, 4]
         bulk_readings(temp_data, sensors, types, current_time)
     return HttpResponse("Success")
 
