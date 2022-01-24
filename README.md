@@ -11,7 +11,7 @@ A Django server running on Sqlite which stores data from a remote greenhouse and
 - Current temperature/humidity/water level
 - Greenhouse Image Upload
 - Dashboard shows most image taken inside the Greenhouse
--
+
 # To Do
 - Testing
 - Dynamic icons for heater/water level/temperature/humidity
