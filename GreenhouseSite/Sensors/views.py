@@ -1,5 +1,4 @@
 from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
 import json
 import datetime
 from os import path
@@ -12,7 +11,6 @@ from django.shortcuts import render
 from django.utils.timezone import make_aware
 import pytz
 from django.utils import timezone
-from . import forms
 
 
 @api_view(['POST'])
@@ -25,17 +23,38 @@ def upload_temp_reading(request):
         current_time = make_aware(current_time, timezone=pytz.timezone("America/Chicago"))
         sensors = [2, 2, 3, 3]
         types = [1, 2, 1, 2]
-        reading_objects = []
-
-        for index, reading in enumerate(temp_data["readings"]):
-            reading_object = models.Reading(value=reading, sensor_id=sensors[index], reading_type_id=types[index],
-                                            reading_datetime=current_time)
-            reading_objects.append(reading_object)
-
-        models.Reading.objects.bulk_create(reading_objects)
+        bulk_readings(temp_data, sensors, types, current_time)
         device_update = models.DeviceStatus(device_id=1, status=temp_data["heater"], status_datetime=current_time)
         device_update.save()
     return HttpResponse("Success")
+
+
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def upload_soil_reading(request):
+    if request.method == "POST":
+        temp_data = json.loads(request.body.decode("utf-8"))
+        current_time = get_remote_time(temp_data)
+        sensors = [5]
+        types = [4]
+        bulk_readings(temp_data, sensors, types, current_time)
+    return HttpResponse("Success")
+
+
+def bulk_readings(temp_data, sensors, types, current_time):
+    reading_objects = []
+    for index, reading in enumerate(temp_data["readings"]):
+        reading_object = models.Reading(value=reading, sensor_id=sensors[index], reading_type_id=types[index],
+                                        reading_datetime=current_time)
+        reading_objects.append(reading_object)
+    models.Reading.objects.bulk_create(reading_objects)
+
+
+def get_remote_time(temp_data):
+    current_time = datetime.datetime.strptime(temp_data["date"], "%Y%m%d%H%M")
+    current_time = make_aware(current_time, timezone=pytz.timezone("America/Chicago"))
+    return current_time
 
 
 @api_view(['POST'])
@@ -148,7 +167,7 @@ def get_heater_series(request):
 
 # Copies a sql file into memory then sends it to the database. Database results are returned
 def connection_query(filename, parameters):
-    sql_path = path.join(path.dirname(path.dirname(__file__)), "sql", filename)
+    sql_path = path.join(path.dirname(__file__), "sql", filename)
     sql_text = open(sql_path).read()
     with connection.cursor() as cursor:
         cursor.execute(sql_text, parameters)
