@@ -10,6 +10,9 @@ $(document).ready(function () {
             $("#humd").text(data.readings[1] + "%")
             water_text = $("#water")
             water_text.text(data.readings[2] + "%")
+            $("#Soil1").text(data.readings[3]
+            $("#Soil2").text(data.readings[4]
+            $("#Soil3").text(data.readings[5]
             if (data.readings[2] < 40){
                 $("#water").css("color", "red");
             }

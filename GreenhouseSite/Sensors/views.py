@@ -106,6 +106,11 @@ def request_sensor_data(request):
     water = models.Reading.objects.filter(reading_type_id=3).latest("reading_datetime").value
     heater = models.DeviceStatus.objects.filter(device_id=1).latest("status_datetime").status
     json_output = {"readings": [temp, humd, water], "heater": heater}
+    soil_sensors = [5, 6, 7]
+    for sensor in soil_sensors:
+        moisture = models.Reading.objects.filter(sensor_id=sensor).latest("reading_datetime").value
+        json_output["readings"].append(moisture)
+
     return HttpResponse(json.dumps(json_output), content_type="application/json")
 
 

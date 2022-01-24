@@ -54,3 +54,5 @@ class DeviceStatus(models.Model):
 class DatedImage(models.Model):
     date = models.DateField()
     image = models.ImageField(upload_to='images/')
+
+
