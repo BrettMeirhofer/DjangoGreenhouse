@@ -9,10 +9,11 @@ A Django server running on Sqlite which stores data from a remote greenhouse and
 - Average temperature/humidity/water_level graphs for 10 most recent readings
 - Current heater status
 - Current temperature/humidity/water level
-
+- Greenhouse Image Upload
+- Dashboard shows most image taken inside the Greenhouse
+-
 # To Do
 - Testing
-- Display most recent uploaded image
 - Dynamic icons for heater/water level/temperature/humidity
 - Gallery page with images for each day
 - Sensor page with most recent output on all sensors
