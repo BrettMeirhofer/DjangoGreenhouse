@@ -21,7 +21,7 @@ class PlantStatus(models.Model):
 class Plant(models.Model):
     plant_type = models.ForeignKey(PlantType, on_delete=models.RESTRICT, default=1)
     plant_status = models.ForeignKey(PlantStatus, on_delete=models.RESTRICT, default=1)
-    soil_sensor = models.ForeignKey("Sensors.Sensor", on_delete=models.RESTRICT, default=1)
+    soil_sensor = models.ForeignKey("Sensors.Sensor", on_delete=models.RESTRICT, default=1, null=True, blank=True)
     notes = models.CharField(max_length=200)
     date_sprouted = models.DateField()
     date_died = models.DateField()
