@@ -4,11 +4,18 @@ from django.db import models
 class PlantType(models.Model):
     type_name = models.CharField(max_length=40)
     type_desc = models.CharField(max_length=200)
+    info_url = models.URLField(max_length=200)
     determinate = models.BooleanField()
+
+    def __str__(self):
+        return self.type_name
 
 
 class PlantStatus(models.Model):
     status_name = models.CharField(max_length=40)
+
+    def __str__(self):
+        return self.status_name
 
 
 class Plant(models.Model):

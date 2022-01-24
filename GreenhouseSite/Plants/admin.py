@@ -9,7 +9,7 @@ class PlantStatusAdmin(admin.ModelAdmin):
 
 @admin.register(models.PlantType)
 class PlantTypeAdmin(admin.ModelAdmin):
-    list_display = ["type_name", "determinate"]
+    list_display = ["type_name", "determinate", "info_url"]
 
 
 @admin.register(models.Plant)
