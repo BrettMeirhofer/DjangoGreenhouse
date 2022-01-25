@@ -1,4 +1,6 @@
 from django.db import models
+import os
+from io import BytesIO
 
 
 class SensorType(models.Model):
@@ -55,4 +57,41 @@ class DatedImage(models.Model):
     date = models.DateField()
     image = models.ImageField(upload_to='images/')
 
+    """
+    thumbnail = models.ImageField(upload_to='thumbs', editable=False)
+
+    def save(self, *args, **kwargs):
+
+        if not self.make_thumbnail():
+            # set to a default thumbnail
+            raise Exception('Could not create thumbnail - is the file type valid?')
+
+        super(DatedImage, self).save(*args, **kwargs)
+
+    def make_thumbnail(self):
+
+        image = Image.open(self.image)
+        image.thumbnail(THUMB_SIZE, Image.ANTIALIAS)
+
+        thumb_name, thumb_extension = os.path.splitext(self.image.name)
+        thumb_extension = thumb_extension.lower()
+
+        thumb_filename = thumb_name + '_thumb' + thumb_extension
+
+        if thumb_extension == '.png':
+            FTYPE = 'PNG'
+
+
+
+        # Save thumbnail to in-memory file as StringIO
+        temp_thumb = BytesIO()
+        image.save(temp_thumb, FTYPE)
+        temp_thumb.seek(0)
+
+        # set save=False, otherwise it will run in an infinite loop
+        self.thumbnail.save(thumb_filename, ContentFile(temp_thumb.read()), save=False)
+        temp_thumb.close()
+
+        return True
+    """
 

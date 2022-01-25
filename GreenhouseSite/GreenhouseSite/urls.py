@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("Sensors/", include("Sensors.urls")),
     path("", public.greenhouse_status, name="dashboard"),
-    path("gallery", public.gallery_view, name="gallery")
+    path("gallery", public.gallery_view, name="gallery"),
+    path("plants", public.plants_view, name="plants")
 ]
 
