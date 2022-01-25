@@ -1,6 +1,7 @@
 from .. import models
 from django.shortcuts import render
 from django.core import exceptions
+import Plants
 
 
 def gallery_view(request):
@@ -9,7 +10,7 @@ def gallery_view(request):
 
 
 def plants_view(request):
-    plants = models.DatedImage.objects.order_by("-date_sprouted")
+    plants = Plants.models.Plant.objects.order_by("-date_sprouted")
     return render(request, "admin/plants.html", {"plants": plants})
 
 
