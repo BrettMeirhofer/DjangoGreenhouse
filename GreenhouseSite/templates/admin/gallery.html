@@ -11,6 +11,9 @@
 
 {% block extrabody %}{{ block.super }}
     {% for image in images %}
-        <img src="{{image.image.url}}">
+        <div>
+            <p>{{image.image.date}}</p>
+            <img src="{{image.image.url}}">
+        </div>
     {% endfor %}
 {% endblock %}
