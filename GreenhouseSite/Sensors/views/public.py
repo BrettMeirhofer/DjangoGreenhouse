@@ -4,8 +4,8 @@ from django.core import exceptions
 
 
 def gallery_view(request):
-    urls = [x.image.url for x in models.DatedImage.objects.order_by("-date")]
-    return render(request, "admin/gallery.html", {'url_list': urls})
+    images = models.DatedImage.objects.order_by("-date")
+    return render(request, "admin/gallery.html", {'images': images})
 
 
 # Displays a page listing realtime information about the greenhouse
