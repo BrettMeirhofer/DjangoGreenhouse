@@ -29,3 +29,11 @@ h2 {
 .navlink:hover:not(.active) {
   background-color: #111;
 }
+
+.gallerydiv {
+    display: inline-block;
+}
+
+.gallerydate {
+    text-align: center;
+}
