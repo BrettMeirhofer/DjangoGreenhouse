@@ -10,11 +10,13 @@
     {% endblock %}
 </head>
 <body class="background" style="background-image: url('{% static "Sensors/jpg/background.jpg" %}');">
-    <ul class="navbar">
-        <li class="navli"><a class="navlink" href="{% url 'dashboard'%}">Dashboard</a></li>
-        <li class="navli"><a class="navlink" href="{% url 'gallery'%}">Gallery</a></li>
-        <li class="navli"><a class="navlink" href="{% url 'plants'%}">Plants</a></li>
-    </ul>
+    <div class="navcontainer">
+        <ul class="navbar">
+            <li class="navli"><a class="navlink" href="{% url 'dashboard'%}">Dashboard</a></li>
+            <li class="navli"><a class="navlink" href="{% url 'gallery'%}">Gallery</a></li>
+            <li class="navli"><a class="navlink" href="{% url 'plants'%}">Plants</a></li>
+        </ul>
+    </div>
     <div class="container">
         {% block extrabody %}
         {% endblock %}
