@@ -2,6 +2,11 @@
 {% load i18n %}
 {% load static %}
 
+{% block extrahead %}{{ block.super }}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="{% static 'Sensors/js/table_sorting.js' %}"></script>
+{% endblock %}
+
 {% block extrabody %}{{ block.super }}
     <div class="center">
         <h1>Greenhouse Plants</h1>

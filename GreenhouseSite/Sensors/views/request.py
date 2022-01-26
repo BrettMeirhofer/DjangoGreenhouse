@@ -22,11 +22,11 @@ def get_water_series(request):
 
 # Returns a json of avg heater uptime per hour for last 10 hours
 def get_heater_series(request):
-    sql_output = helper.connection_query("DeviceUptime.sql", None)
+    sql_output = helper.connection_query("DeviceUptime.sql", [1])
 
     response_data = {"label": [], "y": []}
     for index, row in enumerate(sql_output):
-        label = helper.get_delta_seconds(datetime.datetime.strptime(row[0], "%Y%m%d%H"))
+        label = helper.get_delta_seconds(row[0])
         response_data["label"].append(label)
         y = row[1]/10
         response_data["y"].append(y)

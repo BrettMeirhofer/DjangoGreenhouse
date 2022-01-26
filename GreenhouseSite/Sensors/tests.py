@@ -18,6 +18,7 @@ class ViewHelpersTestCase(TestCase):
         expected_output = [(1, "test1"), (2, "test2")]
         self.assertEqual(sql_output, expected_output)
 
+    # Checks that device uptime ca
     def test_device_uptime(self):
         date_string = "202201260605"
         current_time = datetime.datetime.strptime(date_string, "%Y%m%d%H%M")
@@ -29,11 +30,11 @@ class ViewHelpersTestCase(TestCase):
             status = models.DeviceStatus(device_id=1, status_datetime=current_time, status=bool(x))
             objects.append(status)
         models.DeviceStatus.objects.bulk_create(objects)
-        sql_output = helpers.connection_query("DeviceUptime.sql", None)
-        expected_output = [(current_time.strftime("%Y%m%d%H"), 500)]
+        sql_output = helpers.connection_query("DeviceUptime.sql", [1])
+        expected_output = [(current_time, 500)]
         self.assertEqual(sql_output, expected_output)
 
     def test_remote_time(self):
         date_string = "202201260530"
         aware = helpers.get_remote_time({"date": date_string})
-        self.assertEqual("date_string", aware.strftime("%Y%m%d%H%M"))
+        self.assertEqual(date_string, aware.strftime("%Y%m%d%H%M"))
