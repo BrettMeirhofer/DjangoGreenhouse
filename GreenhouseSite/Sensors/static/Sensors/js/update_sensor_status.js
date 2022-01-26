@@ -238,7 +238,7 @@ $(document).ready(function () {
         }
     })
 
-    var x = window.matchMedia("(min-width: 700px)")
+    var x = window.matchMedia("(min-width: 1200px)")
     if (x.matches) {
         $(".canvas_graph").css("display", "inline-block")
     }
