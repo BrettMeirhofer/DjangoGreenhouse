@@ -17,7 +17,7 @@ def get_humd_series(request):
 
 # Returns a json of avg water level per hour for last 10 hours
 def get_water_series(request):
-    return helper.sensor_series([3])
+    return helper.sensor_series([3], int)
 
 
 # Returns a json of avg heater uptime per hour for last 10 hours
