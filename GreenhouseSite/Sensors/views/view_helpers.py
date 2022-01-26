@@ -29,7 +29,7 @@ def get_delta_seconds(target_datetime):
 def get_delta_hours(target_datetime):
     tz = pytz.timezone("Africa/Abidjan")
     hours = timezone.now() - timezone.make_aware(target_datetime, tz)
-    hours = round(hours.hours, 0)
+    hours = round(hours.seconds/3600, 0)
     return hours
 
 
