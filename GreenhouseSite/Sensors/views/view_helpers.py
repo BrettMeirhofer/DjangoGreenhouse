@@ -5,6 +5,7 @@ from django.utils import timezone
 from .. import models
 import datetime
 from django.http import HttpResponse
+import json
 
 
 # Copies a sql file into memory then sends it to the database. Database results are returned
@@ -48,11 +49,11 @@ def fah_to_cel(row_value):
 
 # Builds a json designed for consumption by chart.js graphs from an sql query
 def sensor_series(parameters, y_adjust=None, file="AvgSensorSeries.sql"):
-    sql_output = helper.connection_query(file, parameters)
+    sql_output = connection_query(file, parameters)
 
     response_data = {"label": [], "y": []}
     for index, row in enumerate(sql_output):
-        label = helper.get_delta_seconds(row[0])
+        label = get_delta_seconds(row[0])
         response_data["label"].append(label)
         if y_adjust is not None:
             temp_f = y_adjust(row[1])

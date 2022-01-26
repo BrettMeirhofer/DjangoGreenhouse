@@ -2,6 +2,7 @@ from . import view_helpers as helper
 from .. import models
 from django.http import HttpResponse
 import json
+import datetime
 
 
 # Returns a json of avg temp per hour for last 10 hours
@@ -25,7 +26,7 @@ def get_heater_series(request):
 
     response_data = {"label": [], "y": []}
     for index, row in enumerate(sql_output):
-        label = helper.get_delta_seconds(row[0])
+        label = helper.get_delta_seconds(datetime.datetime.strptime(row[0], "%Y%m%d%H"))
         response_data["label"].append(label)
         y = row[1]/10
         response_data["y"].append(y)
