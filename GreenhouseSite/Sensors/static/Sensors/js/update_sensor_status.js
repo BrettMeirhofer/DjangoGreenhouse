@@ -238,7 +238,10 @@ $(document).ready(function () {
         }
     })
 
-    $(".canvas_graph").css("display", "inline-block")
+    var x = window.matchMedia("(min-width: 700px)")
+    if (x.matches) {
+        $(".canvas_graph").css("display", "inline-block")
+    }
 })
 
 function deltas_to_time(deltas){
