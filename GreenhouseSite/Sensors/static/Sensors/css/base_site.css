@@ -10,6 +10,22 @@ h2 {
     background-color: #333;
 }
 
+@media only screen and (min-width: 1200px) {
+  .navbar {
+    margin: 0px 320px;
+  }
+
+  .container {
+    width: 1200px;
+    min-height: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 200px;
+    margin-top: 0px;
+    padding: 50px;
+}
+}
+
 .navcontainer {
     background-color: #333;
 }
@@ -43,14 +59,7 @@ h2 {
 }
 
 .container {
-    width: 1200px;
-    min-height: 800px;
     background: #D3D3D3;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 200px;
-    margin-top: 0px;
-    padding: 50px;
 }
 
 .background {
