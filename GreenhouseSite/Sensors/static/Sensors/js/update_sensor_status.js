@@ -237,6 +237,8 @@ $(document).ready(function () {
 
         }
     })
+
+    $(".canvas_graph").css("display", "inline-block")
 })
 
 function deltas_to_time(deltas){
