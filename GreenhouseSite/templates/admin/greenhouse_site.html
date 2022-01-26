@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{% static 'Sensors/css/base_site.css' %}">
     {% endblock %}
 </head>
-<body class="background">
+<body class="background" style="background-image: url('{% static "Sensors/jpg/background.jpg" %}');">
     <ul class="navbar">
         <li class="navli"><a class="navlink" href="{% url 'dashboard'%}">Dashboard</a></li>
         <li class="navli"><a class="navlink" href="{% url 'gallery'%}">Gallery</a></li>
