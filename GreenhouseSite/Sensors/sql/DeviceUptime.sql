@@ -1,4 +1,4 @@
-SELECT status_datetime, sum(status)
+SELECT strftime("%Y%m%d%H", status_datetime), (1000 * sum(status)) / count(*)
 FROM Sensors_DeviceStatus
 WHERE device_id=1
 GROUP BY strftime('%Y%m%d%H', status_datetime)

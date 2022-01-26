@@ -6,42 +6,17 @@ import json
 
 # Returns a json of avg temp per hour for last 10 hours
 def get_temp_series(request):
-    return sensor_series([1, 2], fah_to_cel, file="AvgReadingSeries.sql")
+    return helper.sensor_series([1, 2], helper.fah_to_cel, file="AvgReadingSeries.sql")
 
 
 # Returns a json of avg humidity per hour for last 10 hours
 def get_humd_series(request):
-    return sensor_series([2, 2], file="AvgReadingSeries.sql")
+    return helper.sensor_series([2, 2], file="AvgReadingSeries.sql")
 
 
 # Returns a json of avg water level per hour for last 10 hours
 def get_water_series(request):
-    return sensor_series([3])
-
-
-# Converts fahrenheit to celsius
-def fah_to_cel(row_value):
-    output = round((row_value * (9 / 5)) + 32, 2)
-    return output
-
-
-# Builds a json designed for consumption by chart.js graphs from an sql query
-def sensor_series(parameters, y_adjust=None, file="AvgSensorSeries.sql"):
-    sql_output = helper.connection_query(file, parameters)
-
-    response_data = {"label": [], "y": []}
-    for index, row in enumerate(sql_output):
-        label = helper.get_delta_seconds(row[0])
-        response_data["label"].append(label)
-        if y_adjust is not None:
-            temp_f = y_adjust(row[1])
-        else:
-            temp_f = row[1]
-        response_data["y"].append(temp_f)
-
-    response_data["y"].reverse()
-    response_data["label"].reverse()
-    return HttpResponse(json.dumps(response_data), content_type="application/json")
+    return helper.sensor_series([3])
 
 
 # Returns a json of avg heater uptime per hour for last 10 hours
@@ -52,7 +27,7 @@ def get_heater_series(request):
     for index, row in enumerate(sql_output):
         label = helper.get_delta_seconds(row[0])
         response_data["label"].append(label)
-        y = min(int((row[1] / min((label/180), 20)) * 100), 100)
+        y = row[1]/10
         response_data["y"].append(y)
 
     response_data["y"].reverse()

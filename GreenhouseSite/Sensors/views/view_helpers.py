@@ -4,6 +4,7 @@ import pytz
 from django.utils import timezone
 from .. import models
 import datetime
+from django.http import HttpResponse
 
 
 # Copies a sql file into memory then sends it to the database. Database results are returned
@@ -35,5 +36,30 @@ def bulk_readings(temp_data, sensors, types, current_time):
 
 def get_remote_time(temp_data):
     current_time = datetime.datetime.strptime(temp_data["date"], "%Y%m%d%H%M")
-    current_time = timezone.make_aware(current_time, timezone=pytz.timezone("America/Chicago"))
+    current_time = pytz.utc.localize(current_time)
     return current_time
+
+
+# Converts fahrenheit to celsius
+def fah_to_cel(row_value):
+    output = round((row_value * (9 / 5)) + 32, 2)
+    return output
+
+
+# Builds a json designed for consumption by chart.js graphs from an sql query
+def sensor_series(parameters, y_adjust=None, file="AvgSensorSeries.sql"):
+    sql_output = helper.connection_query(file, parameters)
+
+    response_data = {"label": [], "y": []}
+    for index, row in enumerate(sql_output):
+        label = helper.get_delta_seconds(row[0])
+        response_data["label"].append(label)
+        if y_adjust is not None:
+            temp_f = y_adjust(row[1])
+        else:
+            temp_f = row[1]
+        response_data["y"].append(temp_f)
+
+    response_data["y"].reverse()
+    response_data["label"].reverse()
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
