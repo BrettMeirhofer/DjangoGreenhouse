@@ -23,7 +23,11 @@ h2 {
     margin-bottom: 200px;
     margin-top: 0px;
     padding: 50px;
-}
+  }
+
+  .canvas_graph {
+    display: inline-block;
+  }
 }
 
 
@@ -62,6 +66,7 @@ h2 {
 
 .container {
     background: #D3D3D3;
+    padding-bottom: 50px;
 }
 
 .background {
@@ -105,6 +110,3 @@ body {
     margin: 0%;
 }
 
-.canvas_graph {
-    display: inline-block;
-}
