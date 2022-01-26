@@ -26,12 +26,6 @@ h2 {
 }
 }
 
-@media only screen and (max-width: 1200px) {
-    .background{
-        display: none;
-    }
-}
-
 
 .navcontainer {
     background-color: #333;
