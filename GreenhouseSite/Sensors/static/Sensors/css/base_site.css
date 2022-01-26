@@ -41,7 +41,7 @@ h2 {
 .container {
     width: 1200px;
     min-height: 600px;
-    background: white;
+    background: #D3D3D3;
     margin: auto;
     padding: 50px;
 }
@@ -65,21 +65,27 @@ table {
 }
 
 td {
-    border: 1px solid #dddddd;
+    border: 1px solid black;
     padding: 8px;
     text-align: left;
 }
 
 th {
-    border: 1px solid #dddddd;
+    border: 1px solid black;
     text-align: left;
     padding: 8px;
+    background-color: #005000;
+    color: white;
 }
 
 tr:nth-child(even) {
-    background-color: #77DD77;
+    background-color: #013220;
 }
 
 body {
     margin: 0%;
+}
+
+.canvas_graph {
+    display: inline-block;
 }
