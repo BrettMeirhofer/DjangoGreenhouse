@@ -9,13 +9,15 @@
     <link rel="stylesheet" href="{% static 'Sensors/css/base_site.css' %}">
     {% endblock %}
 </head>
-<body>
-    {% block extrabody %}
+<body class="background">
     <ul class="navbar">
         <li class="navli"><a class="navlink" href="{% url 'dashboard'%}">Dashboard</a></li>
         <li class="navli"><a class="navlink" href="{% url 'gallery'%}">Gallery</a></li>
         <li class="navli"><a class="navlink" href="{% url 'plants'%}">Plants</a></li>
     </ul>
-    {% endblock %}
+    <div class="container">
+        {% block extrabody %}
+        {% endblock %}
+    </div>
 </body>
 </html>

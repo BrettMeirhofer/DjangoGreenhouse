@@ -3,16 +3,22 @@
 {% load static %}
 
 {% block extrabody %}{{ block.super }}
-    <table>
-        <tr>
-            <th>Type</th>
-            <th>Status</th>
-        </tr>
-        {% for plant in plants %}
+    <div class="center">
+        <h1>Greenhouse Plants</h1>
+        <table class="center">
             <tr>
-                <td>{{plant.plant_type}}</td>
-                <td>{{plant.plant_status}}</td>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Sprout Date</th>
             </tr>
-        {% endfor %}
-    </table>
+            {% for plant in plants %}
+                <tr>
+                    <td>{{plant.plant_type}}</td>
+                    <td>{{plant.plant_status}}</td>
+                    <td>{{plant.date_sprouted}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
 {% endblock %}

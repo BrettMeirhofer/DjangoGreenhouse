@@ -37,3 +37,42 @@ h2 {
 .gallerydate {
     text-align: center;
 }
+
+.container {
+    width: 1200px;
+    min-height: 600px;
+    background: white;
+    margin: auto;
+    padding: 50px;
+}
+
+.background {
+    background: #D3D3D3;
+}
+
+.center {
+    margin: auto;
+    text-align: center;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    margin:auto;
+}
+
+td {
+    border: 1px solid #dddddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}

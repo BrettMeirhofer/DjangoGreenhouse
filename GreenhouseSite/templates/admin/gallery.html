@@ -10,10 +10,13 @@
 {% endblock %}
 
 {% block extrabody %}{{ block.super }}
-    {% for image in images %}
-        <div class="gallerydiv">
-            <p class="gallerydate">{{image.date}}</p>
-            <img src="{{image.image.url}}">
-        </div>
-    {% endfor %}
+    <div class="center">
+        <h1>Greenhouse Gallery</h1>
+        {% for image in images %}
+            <div class="gallerydiv">
+                <p class="gallerydate">{{image.date}}</p>
+                <img src="{{image.image.url}}">
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
