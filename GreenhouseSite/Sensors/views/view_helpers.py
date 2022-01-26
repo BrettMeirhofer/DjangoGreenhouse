@@ -63,4 +63,5 @@ def sensor_series(parameters, y_adjust=None, file="AvgSensorSeries.sql"):
 
     response_data["y"].reverse()
     response_data["label"].reverse()
-    return HttpResponse(json.dumps(response_data), content_type="application/json")
+    return response_data
+
