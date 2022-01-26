@@ -28,24 +28,6 @@ def get_heater_series(request):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-"""
-# Returns a json of avg heater uptime per hour for last 10 hours
-def get_heater_series(request):
-    sql_output = helper.connection_query("DeviceUptime.sql", [1])
-
-    response_data = {"label": [], "y": []}
-    for index, row in enumerate(sql_output):
-        label = helper.get_delta_seconds(row[0])
-        response_data["label"].append(label)
-        y = row[1]/10
-        response_data["y"].append(y)
-
-    response_data["y"].reverse()
-    response_data["label"].reverse()
-    return HttpResponse(json.dumps(response_data), content_type="application/json")
-"""
-
-
 # Returns a json of most recent sensor data / device status
 def request_sensor_data(request):
     temp = models.Reading.objects.filter(sensor_id=2).filter(reading_type_id=1).latest("reading_datetime").value

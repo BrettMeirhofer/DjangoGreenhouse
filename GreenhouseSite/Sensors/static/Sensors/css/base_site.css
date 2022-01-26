@@ -83,6 +83,7 @@ th {
     padding: 8px;
     background-color: #005000;
     color: white;
+    cursor: pointer;
 }
 
 tr:nth-child(odd) {

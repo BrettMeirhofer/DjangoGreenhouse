@@ -245,8 +245,8 @@ function deltas_to_time(deltas){
     times = []
     deltas.forEach((element => {
                 today = new Date()
-                today.setSeconds(today.getSeconds() - parseInt(element))
-                current_time = today.getHours() + ":" + String(today.getMinutes()).padStart(2, "0")
+                today.setHours(today.getHours() - parseInt(element))
+                current_time = today.getHours() + ":00"
                 times.push(current_time)
             }));
     return times

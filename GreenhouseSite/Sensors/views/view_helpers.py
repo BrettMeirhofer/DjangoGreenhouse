@@ -26,6 +26,13 @@ def get_delta_seconds(target_datetime):
     return seconds
 
 
+def get_delta_hours(target_datetime):
+    tz = pytz.timezone("Africa/Abidjan")
+    hours = timezone.now() - timezone.make_aware(target_datetime, tz)
+    hours = round(hours.hours, 0)
+    return hours
+
+
 def bulk_readings(temp_data, sensors, types, current_time):
     reading_objects = []
     for index, reading in enumerate(temp_data["readings"]):
@@ -53,7 +60,7 @@ def sensor_series(parameters, y_adjust=None, file="AvgSensorSeries.sql"):
 
     response_data = {"label": [], "y": []}
     for index, row in enumerate(sql_output):
-        label = get_delta_seconds(row[0])
+        label = get_delta_hours(row[0])
         response_data["label"].append(label)
         if y_adjust is not None:
             temp_f = y_adjust(row[1])
