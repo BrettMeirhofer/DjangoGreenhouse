@@ -26,6 +26,9 @@ class Sensor(models.Model):
     def __str__(self):
         return self.sensor_name
 
+    def latest_value(self):
+        return Reading.objects.filter(sensor_id=self.id).latest("reading_datetime").value
+
 
 # Describes a measurement taken by a sensor at a date_time
 class Reading(models.Model):

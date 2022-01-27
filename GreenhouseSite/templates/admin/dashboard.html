@@ -6,7 +6,8 @@
 {% block extrahead %}{{ block.super }}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="{% static 'Sensors/js/update_sensor_status.js' %}"></script>
+    <script src="{% static 'Sensors/js/dashboard.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'Sensors/css/dashboard.css' %}">
 {% endblock %}
 
 {% block extrabody %}{{ block.super }}
@@ -25,38 +26,53 @@
             <h2>Humidity: </h2>
             <h2 id="humd">50%</h2>
         </div>
-
-        <div>
-            <h2>Heater: </h2>
-            <h2 id="heater">OFF</h2>
+        <hr>
+        <h2>Soil Moisture</h2>
+        <div id="pots">
+            <div class="pot_container">
+                <img class="pot" src="{% static 'Sensors/png/PottedPlant.png' %}">
+                <p class="pot_status" id="Soil1"></p>
+                <p class="pot_title">#1</p>
+            </div>
+            <div class="pot_container">
+                <img class="pot" src="{% static 'Sensors/png/PottedPlant.png' %}">
+                <p class="pot_status" id="Soil2"></p>
+                <p class="pot_title">#2</p>
+            </div>
+            <div class="pot_container">
+                <img class="pot" src="{% static 'Sensors/png/PottedPlant.png' %}">
+                <p class="pot_status" id="Soil3"></p>
+                <p class="pot_title">#3</p>
+            </div>
         </div>
-        <div>
-            <h2>Planter #1 Moisture: </h2>
-            <h2 id="Soil1">50000</h2>
+        <hr>
+        <h2>Reservoir Level</h2>
+        <div id="tank">
+            <div id="air_tank"></div>
+            <div id="wave_tank" style="background-image: url('{% static "Sensors/png/wave.png" %}')"></div>
+            <div id="water_tank"></div>
         </div>
-        <div>
-            <h2>Planter #2 Moisture: </h2>
-            <h2 id="Soil2">50000</h2>
-        </div>
-        <div>
-            <h2>Planter #3 Moisture: </h2>
-            <h2 id="Soil3">50000</h2>
-        </div>
-
         <div>
             <h2>Water Level: </h2>
             <h2 id="water">70%</h2>
         </div>
-        <div id="tank">
-            <div id="air_tank"></div>
-            <div id="water_tank" style="background-image: url('{% static "Sensors/png/wave.png" %}')"></div>
+        <hr>
+        <h2>Device Status</h2>
+        <div id="heater_container" class="tooltip">
+            <img id="heater_off" src="{% static 'Sensors/png/HeaterOff.png' %}">
+            <img id="heater_on" src="{% static 'Sensors/png/HeaterOn.png' %}">
+            <span class="tooltiptext" id="heater_tooltip"></span>
         </div>
+        <hr>
+        <h2>Device Uptime / Sensor Readings</h2>
         <div class="center">
             <canvas id="chart1" class="canvas_graph"></canvas>
             <canvas id="chart2" class="canvas_graph"></canvas>
             <canvas id="chart3" class="canvas_graph"></canvas>
             <canvas id="chart4" class="canvas_graph"></canvas>
         </div>
+        <hr>
+        <h2>Most Recent Greenhouse Image</h2>
         <img src="{{img_url}}">
     </div>
 {% endblock %}

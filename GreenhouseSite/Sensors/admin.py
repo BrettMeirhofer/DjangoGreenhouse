@@ -21,7 +21,11 @@ class DeviceStatusAdmin(admin.ModelAdmin):
     list_display = ["device", "status", "status_datetime"]
 
 
+@admin.register(models.DatedImage)
+class DatedImageAdmin(admin.ModelAdmin):
+    list_display = ["date"]
+
+
 admin.site.register(models.ReadingType)
 admin.site.register(models.SensorType)
 admin.site.register(models.Device)
-admin.site.register(models.DatedImage)

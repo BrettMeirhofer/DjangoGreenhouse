@@ -1,4 +1,9 @@
 from django.db import models
+import datetime
+from django import template
+from Sensors.views.view_helpers import find_soil_status
+
+register = template.Library()
 
 
 class PlantType(models.Model):
@@ -25,3 +30,13 @@ class Plant(models.Model):
     notes = models.CharField(max_length=200, null=True, blank=True)
     date_sprouted = models.DateField(null=True, blank=True)
     date_died = models.DateField(null=True, blank=True)
+
+    def age(self):
+        delta = datetime.datetime.now().date() - self.date_sprouted
+        return delta.days
+
+    def soil_status(self):
+        if self.soil_sensor is None:
+            return "NA"
+        else:
+            return find_soil_status(self.soil_sensor.latest_value())

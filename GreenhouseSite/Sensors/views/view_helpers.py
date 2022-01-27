@@ -72,3 +72,11 @@ def sensor_series(parameters, y_adjust=None, file="AvgSensorSeries.sql"):
     response_data["label"].reverse()
     return response_data
 
+
+def find_soil_status(value):
+    soil_status = [[0, "Very Wet"], [40000, "Wet"], [50000, "Dry"], [55000, "Very Dry"]]
+    soil_status.reverse()
+    for status in soil_status:
+        if value > status[0]:
+            return status[1]
+    return "Error"

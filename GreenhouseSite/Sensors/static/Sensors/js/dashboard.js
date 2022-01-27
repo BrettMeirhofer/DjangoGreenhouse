@@ -12,26 +12,21 @@ $(document).ready(function () {
             water_text.text(data.readings[2] + "%")
             water_percent = data.readings[2]
             $("#air_tank").css("height", 100 - data.readings[2])
-            $("#water_tank").css("height", data.readings[2])
+            $("#water_tank").css("height", data.readings[2] - 5)
             $("#Soil1").text(data.readings[3])
             $("#Soil2").text(data.readings[4])
             $("#Soil3").text(data.readings[5])
-            if (data.readings[2] < 40){
-                $("#water").css("color", "red");
-            }
-            else if (data.readings[2] < 60){
-                $("#water").css("color", "yellow");
-            }
-            else{
-                $("#water").css("color", "green");
-            }
             if (data.heater){
                 heater_status = "ON"
+                $("#heater_on").css("visibility", "visible")
+                $("#heater_off").css("visibility", "hidden")
             }
             else{
                 heater_status = "OFF"
+                $("#heater_on").css("visibility", "hidden")
+                $("#heater_off").css("visibility", "visible")
             }
-            $("#heater").text(heater_status)
+            $("#heater_tooltip").text("Heater: " + heater_status)
 
         }
     })

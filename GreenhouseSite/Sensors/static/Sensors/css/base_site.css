@@ -111,17 +111,35 @@ body {
     margin: auto;
 }
 
-#water_tank {
-    background-repeat: repeat-x;
-    background-size: 62.5px 62.5px;
+.tooltip {
+  position: relative;
+  display: inline-block;
 }
 
-#tank {
-    width: 250px;
-    margin: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border-style: solid;
-    border-width: 0px 4px 4px 4px;
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
 
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+hr {
+    height: 1px;
+    background-color: Gray;
+    margin: 20px 30%;
+    border-style: none;
 }

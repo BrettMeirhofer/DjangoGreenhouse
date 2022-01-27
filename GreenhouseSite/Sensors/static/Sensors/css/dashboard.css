@@ -1,0 +1,66 @@
+#water_tank {
+    background-color: #216eaf;
+}
+
+#wave_tank {
+    background-repeat: repeat-x;
+    background-size: 62.5px 5px;
+    height: 5px;
+}
+
+#tank {
+    width: 250px;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-style: solid;
+    border-width: 0px 4px 4px 4px;
+}
+
+#heater_container {
+    position: relative;
+    margin: auto;
+    height: 40px;
+    width: 50px;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#heater_on {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+}
+
+#heater_off {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+}
+
+.pot_container {
+    display: inline-block;
+    text-align: center;
+    position: relative;
+}
+
+.pot_title {
+    position: absolute;
+    bottom: 33%;
+    left: 42%;
+}
+
+.pot {
+    height: 100px;
+    width: 100px;
+}
+
+#pots {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

@@ -15,12 +15,16 @@
                 <th>Type</th>
                 <th>Status</th>
                 <th>Sprout Date</th>
+                <th>Age(Days)</th>
+                <th>Soil Status</th>
             </tr>
             {% for plant in plants %}
                 <tr>
                     <td>{{plant.plant_type}}</td>
                     <td>{{plant.plant_status}}</td>
                     <td>{{plant.date_sprouted}}</td>
+                    <td>{{plant.age}}</td>
+                    <td>{{plant.soil_status}}</td>
                 </tr>
             {% endfor %}
         </table>

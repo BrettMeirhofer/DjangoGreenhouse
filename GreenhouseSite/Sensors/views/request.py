@@ -30,14 +30,16 @@ def get_heater_series(request):
 
 # Returns a json of most recent sensor data / device status
 def request_sensor_data(request):
-    temp = models.Reading.objects.filter(sensor_id=2).filter(reading_type_id=1).latest("reading_datetime").value
-    humd = models.Reading.objects.filter(sensor_id=2).filter(reading_type_id=2).latest("reading_datetime").value
-    water = models.Reading.objects.filter(reading_type_id=3).latest("reading_datetime").value
-    heater = models.DeviceStatus.objects.filter(device_id=1).latest("status_datetime").status
+    temp = models.Reading.objects.filter(sensor__sensor_name="Lower").filter(reading_type_id=1).latest("reading_datetime").value
+    humd = models.Reading.objects.filter(sensor__sensor_name="Lower").filter(reading_type_id=2).latest("reading_datetime").value
+    water = models.Reading.objects.filter(sensor__sensor_name="Reservoir Sonar").latest("reading_datetime").value
+    heater = models.DeviceStatus.objects.filter(device__device_name="Heater").latest("status_datetime").status
     json_output = {"readings": [temp, humd, int(water)], "heater": heater}
     soil_sensors = [5, 6, 7]
+
     for sensor in soil_sensors:
         moisture = models.Reading.objects.filter(sensor_id=sensor).latest("reading_datetime").value
-        json_output["readings"].append(moisture)
+        status = helper.find_soil_status(moisture)
+        json_output["readings"].append(status)
 
     return HttpResponse(json.dumps(json_output), content_type="application/json")
