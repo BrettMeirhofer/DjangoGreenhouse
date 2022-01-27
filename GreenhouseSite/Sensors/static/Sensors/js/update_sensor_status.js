@@ -10,6 +10,9 @@ $(document).ready(function () {
             $("#humd").text(data.readings[1] + "%")
             water_text = $("#water")
             water_text.text(data.readings[2] + "%")
+            water_percent = data.readings[2]
+            $("#air_tank").css("height", 100 - data.readings[2])
+            $("#water_tank").css("height", data.readings[2])
             $("#Soil1").text(data.readings[3])
             $("#Soil2").text(data.readings[4])
             $("#Soil3").text(data.readings[5])

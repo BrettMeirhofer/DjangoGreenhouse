@@ -110,3 +110,13 @@ body {
 .canvas_graph{
     margin: auto;
 }
+
+.air_tank {
+    background-color:white;
+    width: 200px;
+}
+
+.water_tank {
+    background-color:blue;
+    width: 200px;
+}
