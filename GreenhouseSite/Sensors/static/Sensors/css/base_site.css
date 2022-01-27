@@ -112,7 +112,9 @@ body {
 }
 
 #water_tank {
-    background-color:#00008B;
+    background-image: url("https://image.ibb.co/fmHm66/wave.png");
+    background-repeat: repeat-x;
+    background-size: 62.5px 62.5px;
 }
 
 #tank {
