@@ -33,10 +33,10 @@ def get_delta_hours(target_datetime):
     return hours
 
 
-def bulk_readings(temp_data, sensors, types, current_time):
+def bulk_readings(temp_data, sensors, current_time):
     reading_objects = []
     for index, reading in enumerate(temp_data["readings"]):
-        reading_object = models.Reading(value=reading, sensor_id=sensors[index], reading_type_id=types[index],
+        reading_object = models.Reading(value=reading, sensor_id=sensors[index],
                                         reading_datetime=current_time)
         reading_objects.append(reading_object)
     models.Reading.objects.bulk_create(reading_objects)

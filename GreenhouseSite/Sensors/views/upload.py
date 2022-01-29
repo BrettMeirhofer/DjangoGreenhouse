@@ -15,9 +15,8 @@ def upload_temp_reading(request):
     if request.method == "POST":
         temp_data = json.loads(request.body.decode("utf-8"))
         current_time = helper.get_remote_time(temp_data)
-        sensors = [2, 2, 3, 3]
-        types = [1, 2, 1, 2]
-        helper.bulk_readings(temp_data, sensors, types, current_time)
+        sensors = [8, 9, 10, 11]
+        helper.bulk_readings(temp_data, sensors, current_time)
     return HttpResponse("Success")
 
 
@@ -29,8 +28,7 @@ def upload_soil_reading(request):
         temp_data = json.loads(request.body.decode("utf-8"))
         current_time = helper.get_remote_time(temp_data)
         sensors = [5, 6, 7]
-        types = [4, 4, 4]
-        helper.bulk_readings(temp_data, sensors, types, current_time)
+        helper.bulk_readings(temp_data, sensors, current_time)
     return HttpResponse("Success")
 
 
@@ -41,7 +39,7 @@ def upload_water_reading(request):
     if request.method == "POST":
         water_data = json.loads(request.body.decode("utf-8"))
         current_time = helper.get_remote_time(water_data)
-        water_reading = models.Reading(sensor_id=4, value=round(water_data["water_level"]*100, 2), reading_type_id=3,
+        water_reading = models.Reading(sensor_id=4, value=round(water_data["water_level"]*100, 2),
                                        reading_datetime=current_time)
         water_reading.save()
     return HttpResponse("Success")

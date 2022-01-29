@@ -24,6 +24,7 @@ class PlantStatus(models.Model):
 
 
 class Plant(models.Model):
+    type_id = models.IntegerField(null=True, blank=True)  # The id listed on the pot
     plant_type = models.ForeignKey(PlantType, on_delete=models.RESTRICT, default=1)
     plant_status = models.ForeignKey(PlantStatus, on_delete=models.RESTRICT, default=1)
     soil_sensor = models.ForeignKey("Sensors.Sensor", on_delete=models.RESTRICT, default=1, null=True, blank=True)

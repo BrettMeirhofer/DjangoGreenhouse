@@ -34,7 +34,7 @@ class Sensor(models.Model):
 class Reading(models.Model):
     value = models.FloatField(max_length=40)
     sensor = models.ForeignKey(Sensor, on_delete=models.RESTRICT, default=1)
-    reading_type = models.ForeignKey(ReadingType, on_delete=models.RESTRICT, default=1)
+    reading_type = models.ForeignKey(ReadingType, on_delete=models.RESTRICT, default=1, null=True, blank=True)
     reading_datetime = models.DateTimeField()
 
     def __str__(self):
