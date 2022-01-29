@@ -5,7 +5,7 @@ from datetime import timedelta, datetime
 from django.utils.timezone import utc
 
 
-# For every sensor reading for the Lower/Electronics sensor make a new reading for the GH Temp/GH Humd/E Temp/E Humd sensors
+# Set the sensor for temp/humd readings from Lower/Electronics to the four sensors that correspond to the readingtype
 class Command(BaseCommand):
     help = 'Displays stats related to Article and Comment models'
 

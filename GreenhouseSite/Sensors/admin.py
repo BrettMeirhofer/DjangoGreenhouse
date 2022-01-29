@@ -1,11 +1,10 @@
 from django.contrib import admin
 from . import models
-# Register your models here.
 
 
 @admin.register(models.Reading)
 class ReadingAdmin(admin.ModelAdmin):
-    list_filter = ["sensor", "reading_type"]
+    list_filter = ["sensor"]
     list_display = [field.name for field in models.Reading._meta.get_fields()]
     
     
@@ -26,6 +25,5 @@ class DatedImageAdmin(admin.ModelAdmin):
     list_display = ["date"]
 
 
-admin.site.register(models.ReadingType)
 admin.site.register(models.SensorType)
 admin.site.register(models.Device)

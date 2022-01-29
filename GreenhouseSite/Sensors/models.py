@@ -10,14 +10,6 @@ class SensorType(models.Model):
         return self.type_name
 
 
-# Describes what a reading measures
-class ReadingType(models.Model):
-    type_name = models.CharField(max_length=40)
-
-    def __str__(self):
-        return self.type_name
-
-
 # Describes hardware that takes readings
 class Sensor(models.Model):
     sensor_type = models.ForeignKey(SensorType, on_delete=models.RESTRICT, default=1)
@@ -34,11 +26,10 @@ class Sensor(models.Model):
 class Reading(models.Model):
     value = models.FloatField(max_length=40)
     sensor = models.ForeignKey(Sensor, on_delete=models.RESTRICT, default=1)
-    reading_type = models.ForeignKey(ReadingType, on_delete=models.RESTRICT, default=1, null=True, blank=True)
     reading_datetime = models.DateTimeField()
 
     def __str__(self):
-        return str(self.reading_datetime) + str(self.reading_type) + str(self.sensor) + str(self.value)
+        return str(self.reading_datetime) + str(self.sensor) + str(self.value)
 
 
 # Describes a device that can be toggled
