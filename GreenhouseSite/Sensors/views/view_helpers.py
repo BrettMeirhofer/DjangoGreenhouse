@@ -33,6 +33,13 @@ def get_delta_hours(target_datetime):
     return hours
 
 
+def get_delta_days(target_datetime, current_time=timezone.now()):
+    tz = pytz.timezone("Africa/Abidjan")
+    days = current_time - timezone.make_aware(target_datetime, tz)
+    days = round(days.days, 0)
+    return days
+
+
 def bulk_readings(temp_data, sensors, current_time):
     reading_objects = []
     for index, reading in enumerate(temp_data["readings"]):
@@ -55,12 +62,12 @@ def fah_to_cel(row_value):
 
 
 # Builds a json designed for consumption by chart.js graphs from an sql query
-def sensor_series(parameters, y_adjust=None, file="AvgSensorSeries.sql"):
+def sensor_series(parameters, y_adjust=None, file="AvgSensorSeries.sql", x_adjust=get_delta_hours):
     sql_output = connection_query(file, parameters)
-
+    print(sql_output)
     response_data = {"label": [], "y": []}
     for index, row in enumerate(sql_output):
-        label = get_delta_hours(row[0])
+        label = x_adjust(row[0])
         response_data["label"].append(label)
         if y_adjust is not None:
             temp_f = y_adjust(row[1])
@@ -68,6 +75,7 @@ def sensor_series(parameters, y_adjust=None, file="AvgSensorSeries.sql"):
             temp_f = row[1]
         response_data["y"].append(temp_f)
 
+    print(response_data["label"])
     response_data["y"].reverse()
     response_data["label"].reverse()
     return response_data
@@ -77,6 +85,6 @@ def find_soil_status(value):
     soil_status = [[0, "Very Wet"], [40000, "Wet"], [50000, "Dry"], [55000, "Very Dry"]]
     soil_status.reverse()
     for status in soil_status:
-        if value > status[0]:
+        if value >= status[0]:
             return status[1]
     return "Error"

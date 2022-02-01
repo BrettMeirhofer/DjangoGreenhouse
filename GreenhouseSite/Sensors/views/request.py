@@ -43,3 +43,26 @@ def request_sensor_data(request):
         json_output["readings"].append(status)
 
     return HttpResponse(json.dumps(json_output), content_type="application/json")
+
+
+# Returns a json of avg temp per hour for last 10 hours
+def get_temp_series_days(request):
+    response_data = helper.sensor_series([8], helper.fah_to_cel, "AvgReadingSeriesDays.sql", helper.get_delta_days)
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+
+# Returns a json of avg humidity per hour for last 10 hours
+def get_humd_series_days(request):
+    response_data = helper.sensor_series([9], file="AvgReadingSeriesDays.sql", x_adjust=helper.get_delta_days)
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+
+# Returns a json of avg water level per hour for last 10 hours
+def get_water_series_days(request):
+    response_data = helper.sensor_series([4], int, file="AvgReadingSeriesDays.sql", x_adjust=helper.get_delta_days)
+    return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+
+def get_heater_series_days(request):
+    response_data = helper.sensor_series([1], lambda x: x/10, "DeviceUptimeDays.sql", helper.get_delta_days)
+    return HttpResponse(json.dumps(response_data), content_type="application/json")

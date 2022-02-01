@@ -30,11 +30,10 @@ $(document).ready(function () {
 
         }
     })
-
-    generate_line_graph("#chart1", "#temp_series", "Greenhouse Temperature", "rgba(200, 150, 0, 1)", "Temperature (F)")
-    generate_line_graph("#chart2", "#humd_series", "Greenhouse Humidity", "rgba(0, 200, 0, 1)", "Humidity %")
-    generate_line_graph("#chart3", "#water_series", "Greenhouse Water Level", "rgba(0, 0, 200, 1)", "Fill %")
-    generate_line_graph("#chart4", "#heater_series", "Greenhouse Heater Uptime", "rgba(200, 0, 0, 1)", "Uptime %")
+    temp_chart(deltas_to_time)
+    humd_chart(deltas_to_time)
+    water_chart(deltas_to_time)
+    heater_chart(deltas_to_time)
 
     var x = window.matchMedia("(min-width: 1200px)")
     if (x.matches) {

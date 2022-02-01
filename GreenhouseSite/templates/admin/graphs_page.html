@@ -1,0 +1,25 @@
+{% extends "admin/greenhouse_site.html" %}
+{% load i18n %}
+{% load static %}
+
+
+{% block extrahead %}{{ block.super }}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'Sensors/js/site_charts.js' %}"></script>
+    <script src="{% static 'Sensors/js/graphs_page.js' %}"></script>
+{% endblock %}
+
+{% block extrabody %}{{ block.super }}
+    <input type="hidden" id="temp_series" data-url="{% url 'temp_series_days'%}" />
+    <input type="hidden" id="humd_series" data-url="{% url 'humd_series_days'%}" />
+    <input type="hidden" id="water_series" data-url="{% url 'water_series_days'%}" />
+    <input type="hidden" id="heater_series" data-url="{% url 'heater_series_days'%}" />
+    <div class="center">
+        <h1>Last 10 Days</h1>
+        <canvas id="chart1" class="canvas_graph"></canvas>
+        <canvas id="chart2" class="canvas_graph"></canvas>
+        <canvas id="chart3" class="canvas_graph"></canvas>
+        <canvas id="chart4" class="canvas_graph"></canvas>
+    </div>
+{% endblock %}

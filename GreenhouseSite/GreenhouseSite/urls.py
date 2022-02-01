@@ -22,6 +22,8 @@ urlpatterns = [
     path("Sensors/", include("Sensors.urls")),
     path("", public.greenhouse_status, name="dashboard"),
     path("gallery", public.gallery_view, name="gallery"),
-    path("plants", public.plants_view, name="plants")
+    path("plants", public.plants_view, name="plants"),
+    path("graphs", public.graphs_page, name="graphs")
 ]
+
 

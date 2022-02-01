@@ -22,3 +22,7 @@ def greenhouse_status(request):
         latest_image = ""
 
     return render(request, "admin/dashboard.html", {'img_url': latest_image})
+
+
+def graphs_page(request):
+    return render(request, "admin/graphs_page.html")
