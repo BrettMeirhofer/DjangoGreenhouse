@@ -23,6 +23,11 @@ URL: https://brettm.pythonanywhere.com/
 
 # To Do
 - Full Testing Coverage
+- Multi Factor Auth
+- Rate limiting
+- Data maintenance commands
+- Gallery Pagination
+- Gallery Thumbnails
 
 # More Images
 
