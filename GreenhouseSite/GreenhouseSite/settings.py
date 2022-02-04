@@ -28,6 +28,8 @@ except ImportError:
             'NAME': 'db.sqlite3',
         }
     }
+    OUTDOOR_ZIP = "11101"
+    OUTDOOR_KEY = ""
 else:
     # SECURITY WARNING: keep the secret key used in production secret!
     SECRET_KEY = sitevars.SiteVars.DjangoKey
@@ -39,10 +41,9 @@ else:
 
     DATABASES = sitevars.SiteVars.DATABASES
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
+    OUTDOOR_ZIP = sitevars.SiteVars.OUTDOOR_ZIP
 
-# Application definition
+    OUTDOOR_KEY = sitevars.SiteVars.OUTDOOR_KEY
 
 INSTALLED_APPS = [
     'Sensors.apps.SensorsConfig',
@@ -128,6 +129,8 @@ TIME_ZONE = 'America/Chicago'
 USE_I18N = True
 
 USE_TZ = True
+
+
 
 
 # Static files (CSS, JavaScript, Images)

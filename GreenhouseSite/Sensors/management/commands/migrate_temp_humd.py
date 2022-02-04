@@ -7,7 +7,6 @@ from django.utils.timezone import utc
 
 # Set the sensor for temp/humd readings from Lower/Electronics to the four sensors that correspond to the readingtype
 class Command(BaseCommand):
-    help = 'Displays stats related to Article and Comment models'
 
     def handle(self, *args, **kwargs):
         names = ["Lower", "Electronics", "Greenhouse Temperature", "Greenhouse Humidity", "Electronics Temperature", "Electronics Humidity"]

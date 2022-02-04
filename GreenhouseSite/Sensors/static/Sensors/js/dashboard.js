@@ -8,14 +8,20 @@ $(document).ready(function () {
             temp_string = fah_temp + "F / " + data.readings[0] + "C"
             $("#temp").text(temp_string)
             $("#humd").text(data.readings[1] + "%")
+
+            fah_temp = ((parseFloat(data.readings[2]) * 9/5) + 32).toFixed(2)
+            temp_string = fah_temp + "F / " + data.readings[2] + "C"
+            $("#temp_out").text(temp_string)
+            $("#humd_out").text(data.readings[3] + "%")
+
             water_text = $("#water")
-            water_text.text(data.readings[2] + "%")
-            water_percent = data.readings[2]
+            water_text.text(data.readings[4] + "%")
+            water_percent = data.readings[4]
             $("#air_tank").css("height", 100 - data.readings[2])
             $("#water_tank").css("height", data.readings[2] - 5)
-            $("#Soil1").text(data.readings[3])
-            $("#Soil2").text(data.readings[4])
-            $("#Soil3").text(data.readings[5])
+            $("#Soil1").text(data.readings[5])
+            $("#Soil2").text(data.readings[6])
+            $("#Soil3").text(data.readings[7])
             if (data.heater){
                 heater_status = "ON"
                 $("#heater_on").css("visibility", "visible")

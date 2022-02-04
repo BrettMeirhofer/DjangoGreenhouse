@@ -1,11 +1,10 @@
 from os import path
 from django.db import connection
 import pytz
-from django.utils import timezone
 from .. import models
 import datetime
-from django.http import HttpResponse
-import json
+from django.conf import settings as conf_settings
+import requests
 
 
 # Copies a sql file into memory then sends it to the database. Database results are returned
@@ -18,26 +17,22 @@ def connection_query(filename, parameters):
     return sql_output
 
 
-# Given a UTC-0 date return how many seconds ago it occurred
-def get_delta_seconds(target_datetime):
-    tz = pytz.timezone("Africa/Abidjan")
-    seconds = timezone.now() - timezone.make_aware(target_datetime, tz)
-    seconds = round(seconds.seconds, 0)
-    return seconds
+def get_delta_seconds(target_datetime, current_time=datetime.datetime.utcnow()):
+    return round((current_time - target_datetime).seconds, 0)
 
 
-def get_delta_hours(target_datetime):
-    tz = pytz.timezone("Africa/Abidjan")
-    hours = timezone.now() - timezone.make_aware(target_datetime, tz)
-    hours = round(hours.seconds/3600, 0)
-    return hours
+def get_delta_hours(target_datetime, current_time=datetime.datetime.utcnow()):
+    target_datetime = target_datetime.replace(minute=0, second=0)
+    return round((current_time - target_datetime).seconds/3600, 0)
 
 
-def get_delta_days(target_datetime, current_time=timezone.now()):
-    tz = pytz.timezone("Africa/Abidjan")
-    days = current_time - timezone.make_aware(target_datetime, tz)
-    days = round(days.days, 0)
-    return days
+def get_delta_days(target_datetime, current_time=datetime.datetime.utcnow()):
+    target_datetime = target_datetime.replace(hour=0, minute=0, second=0)
+    return round((current_time - target_datetime).days, 0)
+
+
+def get_delta_months(target_datetime, current_time=datetime.datetime.utcnow()):
+    return round((current_time.month - target_datetime.month), 0)
 
 
 def bulk_readings(temp_data, sensors, current_time):
@@ -62,12 +57,14 @@ def fah_to_cel(row_value):
 
 
 # Builds a json designed for consumption by chart.js graphs from an sql query
-def sensor_series(parameters, y_adjust=None, file="AvgSensorSeries.sql", x_adjust=get_delta_hours):
+def sensor_series(parameters, y_adjust=None, file="AvgReadingSeries.sql", increment="h"):
+    increment_list = get_increment(increment)
+    parameters.append(increment_list[0])
     sql_output = connection_query(file, parameters)
-    print(sql_output)
+
     response_data = {"label": [], "y": []}
     for index, row in enumerate(sql_output):
-        label = x_adjust(row[0])
+        label = increment_list[1](row[0])
         response_data["label"].append(label)
         if y_adjust is not None:
             temp_f = y_adjust(row[1])
@@ -75,7 +72,7 @@ def sensor_series(parameters, y_adjust=None, file="AvgSensorSeries.sql", x_adjus
             temp_f = row[1]
         response_data["y"].append(temp_f)
 
-    print(response_data["label"])
+
     response_data["y"].reverse()
     response_data["label"].reverse()
     return response_data
@@ -88,3 +85,22 @@ def find_soil_status(value):
         if value >= status[0]:
             return status[1]
     return "Error"
+
+
+def get_increment(key):
+    increment_dict = {"h": ["'%Y%m%d%H'", get_delta_hours], "d": ["'%Y%m%d'", get_delta_days], "m": ["'%Y%m'", get_delta_days]}
+    return increment_dict[key]
+
+
+def get_outdoor_weather():
+    target_url = "https://api.weatherapi.com/v1/current.json"
+    r = requests.get(target_url, params={"key": conf_settings.OUTDOOR_KEY, "q": conf_settings.OUTDOOR_ZIP})
+    current_time = datetime.datetime.utcnow()
+    current_time = pytz.utc.localize(current_time)
+    temp = r.json()["current"]["temp_c"]
+    humd = r.json()["current"]["humidity"]
+    temp_sensor = models.Sensor.objects.get(sensor_name="Outdoor Temp").id
+    humd_sensor = models.Sensor.objects.get(sensor_name="Outdoor Humd").id
+    read_1 = models.Reading(sensor_id=temp_sensor, reading_datetime=current_time, value=temp)
+    read_2 = models.Reading(sensor_id=humd_sensor, reading_datetime=current_time, value=humd)
+    models.Reading.objects.bulk_create([read_1, read_2])

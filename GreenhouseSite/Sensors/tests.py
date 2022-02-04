@@ -6,15 +6,6 @@ import datetime
 import pytz
 
 
-def test_delta_days(target_string, current_string):
-    target_date = datetime.datetime.strptime(target_string, "%Y%m%d")
-    current_date = datetime.datetime.strptime(current_string, "%Y%m%d")
-    tz = pytz.timezone("Africa/Abidjan")
-    current_date = timezone.make_aware(current_date, tz)
-    day_delta = helpers.get_delta_days(target_date, current_date)
-    return day_delta
-
-
 class ViewHelpersTestCase(TestCase):
     # Checks that sql directory can be found, the query executed on the db, and the results returned
     def test_connection_query(self):
@@ -38,7 +29,7 @@ class ViewHelpersTestCase(TestCase):
             status = models.DeviceStatus(device_id=1, status_datetime=current_time, status=bool(x))
             objects.append(status)
         models.DeviceStatus.objects.bulk_create(objects)
-        sql_output = helpers.connection_query("DeviceUptime.sql", [1])
+        sql_output = helpers.connection_query("DeviceUptime.sql", [1, "h"])
         expected_output = [(current_time.replace(tzinfo=None), 500)]
         self.assertEqual(sql_output, expected_output)
 
@@ -53,14 +44,31 @@ class ViewHelpersTestCase(TestCase):
     def test_find_soil_status_v_dry(self):
         self.assertEqual(helpers.find_soil_status(55000), "Very Dry")
 
+    def test_datetime_now(self):
+        self.assertEqual(timezone.now().replace(tzinfo=None), datetime.datetime.utcnow())
+
 
 # Tests the get_x_delta group of functions in view_helpers
 class HelperDeltaTestCase(TestCase):
+    base_date = datetime.datetime.strptime("20220126", "%Y%m%d")
+
     # Checks that the day delta between two identical dates is 0
     def test_delta_days_same(self):
-        date_string = "20220126"
-        self.assertEqual(test_delta_days(date_string, date_string), 0)
+        day_delta = helpers.get_delta_days(self.base_date, self.base_date)
+        self.assertEqual(day_delta, 0)
 
     # Checks that the day delta between two dates that are 2 days apart is 2
     def test_delta_days_two(self):
-        self.assertEqual(test_delta_days("20220126", "20220128"), 2)
+        current_date = datetime.datetime.strptime("20220128", "%Y%m%d")
+        day_delta = helpers.get_delta_days(self.base_date, current_date)
+        self.assertEqual(day_delta, 2)
+
+    def test_delta_months_same(self):
+        day_delta = helpers.get_delta_months(self.base_date, self.base_date)
+        self.assertEqual(day_delta, 0)
+
+    def test_delta_months_two(self):
+        current_date = datetime.datetime.strptime("20220326", "%Y%m%d")
+        day_delta = helpers.get_delta_months(self.base_date, current_date)
+        self.assertEqual(day_delta, 2)
+

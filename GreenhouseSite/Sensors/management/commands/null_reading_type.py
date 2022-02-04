@@ -7,7 +7,6 @@ from django.utils.timezone import utc
 
 # Sets all the reading_type fields to null in preparation for removing it entirely
 class Command(BaseCommand):
-    help = 'Displays stats related to Article and Comment models'
 
     def handle(self, *args, **kwargs):
         readings = models.Reading.objects.all()
