@@ -1,6 +1,6 @@
 # DjangoGreenhouse
  
-A website for displaying information about a greenhouse. Build on Django/Sqlite. Data is gathered using a token API that a remote greenhouse controller with internet connection can post to. 
+A website for displaying information about a greenhouse. Build on Django/Sqlite. Data is gathered using a token API that a remote greenhouse controller with internet connection can post to. Plant information such as plant type or sprout date can be entered on the website Admin and is then displayed in a table on the webpage. 
 
 # URL
 https://brettm.pythonanywhere.com/
