@@ -1,6 +1,6 @@
 # DjangoGreenhouse
  
-A Django server running on Sqlite which stores data from a remote greenhouse and displays it as a dashboard. Also keeps track of the status of plants within the greenhouse.
+A website for displaying information about a greenhouse. Build on Django/Sqlite. Data is gathered using a token API that a remote greenhouse controller with internet connection can post to. 
 
 # URL
 https://brettm.pythonanywhere.com/
