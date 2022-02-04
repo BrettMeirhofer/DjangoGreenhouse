@@ -17,8 +17,8 @@ $(document).ready(function () {
             water_text = $("#water")
             water_text.text(data.readings[4] + "%")
             water_percent = data.readings[4]
-            $("#air_tank").css("height", 100 - data.readings[2])
-            $("#water_tank").css("height", data.readings[2] - 5)
+            $("#air_tank").css("height", 100 - data.readings[4])
+            $("#water_tank").css("height", data.readings[4] - 5)
             $("#Soil1").text(data.readings[5])
             $("#Soil2").text(data.readings[6])
             $("#Soil3").text(data.readings[7])

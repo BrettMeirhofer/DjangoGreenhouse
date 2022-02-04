@@ -19,12 +19,12 @@ def get_humd_series(request):
 
 # Returns a json of avg water level per hour for last 10 hours
 def get_water_series(request):
-    response_data = helper.sensor_series([4], int, increment="d")
+    response_data = helper.sensor_series([4], int)
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
 def get_heater_series(request):
-    response_data = helper.sensor_series([1], lambda x: x/10, file="DeviceUptime.sql", increment="d")
+    response_data = helper.sensor_series([1], lambda x: x/10, file="DeviceUptime.sql")
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
