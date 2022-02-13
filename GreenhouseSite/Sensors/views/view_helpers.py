@@ -23,7 +23,7 @@ def get_delta_seconds(target_datetime, current_time=datetime.datetime.utcnow()):
 
 def get_delta_hours(target_datetime, current_time=datetime.datetime.utcnow()):
     target_datetime = target_datetime.replace(minute=0, second=0)
-    return round((current_time - target_datetime).seconds/3600, 0)
+    return round((current_time - target_datetime).seconds/3600)
 
 
 def get_delta_days(target_datetime, current_time=datetime.datetime.utcnow()):

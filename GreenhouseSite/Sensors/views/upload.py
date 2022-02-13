@@ -8,6 +8,8 @@ from rest_framework.authentication import TokenAuthentication
 from . import view_helpers as helper
 
 
+# Endpoint for uploading readings for temp/humd sensors
+# Will be phased out
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
@@ -21,6 +23,8 @@ def upload_temp_reading(request):
     return HttpResponse("Success")
 
 
+# Endpoint for uploading readings for soil moisture sensors
+# Will be phased out
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
@@ -33,6 +37,8 @@ def upload_soil_reading(request):
     return HttpResponse("Success")
 
 
+# Endpoint for uploading readings for water level sensor
+# Will be phased out
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
@@ -40,12 +46,30 @@ def upload_water_reading(request):
     if request.method == "POST":
         water_data = json.loads(request.body.decode("utf-8"))
         current_time = helper.get_remote_time(water_data)
-        water_reading = models.Reading(sensor_id=4, value=round(water_data["water_level"]*100, 2),
+        water_reading = models.Reading(sensor_id=4, value=round(water_data["water_level"] * 100, 2),
                                        reading_datetime=current_time)
         water_reading.save()
     return HttpResponse("Success")
 
 
+# Endpoint for uploading generic reading/sensor_id pairs
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def upload_readings(request):
+    if request.method == "POST":
+        json_data = json.loads(request.body.decode("utf-8"))
+        current_time = helper.get_remote_time(json_data)
+        reading_objects = []
+        for reading_data in json_data["readings"]:
+            reading_objects.append(models.Reading(sensor_id=reading_data["s"], value=reading_data["r"],
+                                                  reading_datetime=current_time))
+
+        models.Reading.objects.bulk_create(reading_objects)
+    return HttpResponse("Success")
+
+
+# Endpoint for uploading generic device status updates
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
@@ -59,6 +83,7 @@ def upload_device_status(request):
     return HttpResponse("Success")
 
 
+# Endpoint for uploading dated images
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])

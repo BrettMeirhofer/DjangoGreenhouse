@@ -50,25 +50,36 @@ class ViewHelpersTestCase(TestCase):
 
 # Tests the get_x_delta group of functions in view_helpers
 class HelperDeltaTestCase(TestCase):
-    base_date = datetime.datetime.strptime("20220126", "%Y%m%d")
+    base_date = datetime.datetime.strptime("202201260515", "%Y%m%d%H%M")
+
+    def test_delta_hours_same(self):
+        delta = helpers.get_delta_hours(self.base_date, self.base_date)
+        self.assertEqual(delta, 0)
+
+    def test_delta_hours_six(self):
+        current_date = datetime.datetime.strptime("202201261115", "%Y%m%d%H%M")
+        delta = helpers.get_delta_hours(self.base_date, current_date)
+        self.assertEqual(delta, 6)
 
     # Checks that the day delta between two identical dates is 0
     def test_delta_days_same(self):
-        day_delta = helpers.get_delta_days(self.base_date, self.base_date)
-        self.assertEqual(day_delta, 0)
+        delta = helpers.get_delta_days(self.base_date, self.base_date)
+        self.assertEqual(delta, 0)
 
     # Checks that the day delta between two dates that are 2 days apart is 2
     def test_delta_days_two(self):
-        current_date = datetime.datetime.strptime("20220128", "%Y%m%d")
-        day_delta = helpers.get_delta_days(self.base_date, current_date)
-        self.assertEqual(day_delta, 2)
+        current_date = datetime.datetime.strptime("202201280000", "%Y%m%d%H%M")
+        delta = helpers.get_delta_days(self.base_date, current_date)
+        self.assertEqual(delta, 2)
 
     def test_delta_months_same(self):
-        day_delta = helpers.get_delta_months(self.base_date, self.base_date)
-        self.assertEqual(day_delta, 0)
+        delta = helpers.get_delta_months(self.base_date, self.base_date)
+        self.assertEqual(delta, 0)
 
     def test_delta_months_two(self):
-        current_date = datetime.datetime.strptime("20220326", "%Y%m%d")
-        day_delta = helpers.get_delta_months(self.base_date, current_date)
-        self.assertEqual(day_delta, 2)
+        current_date = datetime.datetime.strptime("202203260000", "%Y%m%d%H%M")
+        delta = helpers.get_delta_months(self.base_date, current_date)
+        self.assertEqual(delta, 2)
+
+
 
