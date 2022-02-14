@@ -9,7 +9,7 @@ URL: https://brettm.pythonanywhere.com/
 ![image](https://user-images.githubusercontent.com/78938784/152613041-99b240bf-ae12-4202-b2e9-26ee1b67e2ad.png)
 
 # Data Flow
-![image](https://user-images.githubusercontent.com/78938784/153938389-753fa3df-3820-44ea-8917-351164548822.png)
+![image](https://user-images.githubusercontent.com/78938784/153938997-e35126d3-e388-413a-b34e-6c2a17f768cc.png)
 
 # Features
 - Total heater uptime graph for last 10 hours
