@@ -11,6 +11,7 @@ class GreenhouseAdminSite(admin.AdminSite):
             path('Water/', upload.upload_water_reading, name="Water"),
             path('upload_image/', upload.upload_image, name="upload_image"),
             path('Soil/', upload.upload_soil_reading, name="Soil"),
-            path('Device/', upload.upload_device_status, name="Device")
+            path('Device/', upload.upload_device_status, name="Device"),
+            path('upload_readings/', upload.upload_readings, name="upload_readings"),
         ]
         return my_urls + urls
