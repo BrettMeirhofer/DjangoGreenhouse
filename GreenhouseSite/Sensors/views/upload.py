@@ -9,16 +9,11 @@ from . import view_helpers as helper
 
 
 # Endpoint for uploading readings for temp/humd sensors
-# Will be phased out
+# Now used for triggering an outdoor conditions update
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def upload_temp_reading(request):
-    if request.method == "POST":
-        temp_data = json.loads(request.body.decode("utf-8"))
-        current_time = helper.get_remote_time(temp_data)
-        sensors = [8, 9, 10, 11]
-        helper.bulk_readings(temp_data, sensors, current_time)
     helper.get_outdoor_weather()
     return HttpResponse("Success")
 
