@@ -5,7 +5,7 @@ import Plants
 
 
 def gallery_view(request):
-    images = models.DatedImage.objects.order_by("-date").filter(camera_id=1)
+    images = models.DatedImage.objects.order_by("-date").order_by("camera")
     return render(request, "admin/gallery.html", {'images': images})
 
 
@@ -17,7 +17,7 @@ def plants_view(request):
 # Displays a page listing realtime information about the greenhouse
 def greenhouse_status(request):
     try:
-        latest_image = models.DatedImage.objects.latest("date").image.url
+        latest_image = models.DatedImage.objects.filter(camera_id=1).latest("date").image.url
     except exceptions.ObjectDoesNotExist:
         latest_image = ""
 
