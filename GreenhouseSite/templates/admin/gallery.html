@@ -14,7 +14,7 @@
         <h1>Greenhouse Gallery</h1>
         {% for image in images %}
             <div class="gallerydiv">
-                <p class="gallerydate">{{image.get_header}</p>
+                <p class="gallerydate">{{image.get_header}}</p>
                 <img src="{{image.image.url}}">
             </div>
         {% endfor %}
