@@ -61,9 +61,9 @@ class DatedImage(models.Model):
 
     def get_header(self):
         if self.camera is not None:
-            return self.camera + " " + self.date
+            return str(self.camera) + " " + str(self.date)
         else:
-            return self.date
+            return str(self.date)
     """
     thumbnail = models.ImageField(upload_to='thumbs', editable=False)
 
