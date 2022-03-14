@@ -50,12 +50,20 @@ class DeviceStatus(models.Model):
 class Camera(models.Model):
     camera_name = models.CharField(max_length=40)
 
+    def __str__(self):
+        return self.camera_name
+
 
 class DatedImage(models.Model):
     date = models.DateField()
     image = models.ImageField(upload_to='images/')
     camera = models.ForeignKey(Camera, on_delete=models.SET_NULL, null=True, blank=True)
 
+    def get_header(self):
+        if self.camera is not None:
+            return self.camera + " " + self.date
+        else:
+            return self.date
     """
     thumbnail = models.ImageField(upload_to='thumbs', editable=False)
 
