@@ -85,7 +85,7 @@ def upload_device_status(request):
 def upload_image(request):
     if request.method == "POST":
         file_uploaded = request.FILES.get('file_uploaded')
-        image_model = models.DatedImage(image=file_uploaded, date=datetime.datetime.now().date())
+        cam_id = request.GET.get('id', '')
+        image_model = models.DatedImage(image=file_uploaded, date=datetime.datetime.now().date(), camera_id=int(cam_id))
         image_model.save()
-
     return HttpResponse("Success")

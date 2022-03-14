@@ -27,3 +27,4 @@ class DatedImageAdmin(admin.ModelAdmin):
 
 admin.site.register(models.SensorType)
 admin.site.register(models.Device)
+admin.site.register(models.Camera)
