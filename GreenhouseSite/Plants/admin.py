@@ -16,3 +16,6 @@ class PlantTypeAdmin(admin.ModelAdmin):
 class PlantAdmin(admin.ModelAdmin):
     list_filter = ["plant_status"]
     list_display = ["plant_type", "plant_status", "date_sprouted"]
+
+
+admin.register(models.PlantMedium)
