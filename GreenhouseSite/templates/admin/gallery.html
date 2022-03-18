@@ -15,7 +15,9 @@
         {% for image in images %}
             <div class="gallerydiv">
                 <p class="gallerydate">{{image.get_header}}</p>
-                <img src="{{image.image.url}}">
+                <a href="image.image.url">
+                    <img src="{{image.thumb.url}}">
+                </a>
             </div>
         {% endfor %}
     </div>
