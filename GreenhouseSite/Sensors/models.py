@@ -95,37 +95,42 @@ class DatedImage(models.Model):
         temp_thumb.seek(0)
 
         # set save=False, otherwise it will run in an infinite loop
-        self.thumb.save(thumb_filename, ContentFile(temp_thumb.read()), save=False)
+        self.thumb.save(thumb_filename, ContentFile(temp_thumb.read()))
         temp_thumb.close()
 
         return True
 
 
 class Tank(models.Model):
+    tank_name = models.CharField(max_length=40, default="Water Tank")
+
     level_sensor = models.ForeignKey(Sensor, on_delete=models.RESTRICT, null=True, blank=True, related_name="level")
     ph_sensor = models.ForeignKey(Sensor, on_delete=models.RESTRICT, null=True, blank=True, related_name="ph")
     ppm_sensor = models.ForeignKey(Sensor, on_delete=models.RESTRICT, null=True, blank=True, related_name="ppm")
+
     height = models.FloatField(max_length=40, null=True, blank=True)
     width = models.FloatField(max_length=40, null=True, blank=True)
     length = models.FloatField(max_length=40, null=True, blank=True)
     sensor_dist = models.FloatField(max_length=40, null=True, blank=True)
+
     default_ppm = models.IntegerField(default=150)
     default_ph = models.FloatField(max_length=40, default=7)
-
     target_ppm = models.IntegerField(default=500)
     target_ph = models.FloatField(max_length=40, default=6.5)
-
 
     n = models.IntegerField(default=0)
     p = models.IntegerField(default=0)
     k = models.IntegerField(default=0)
 
+    def get_status_dict(self):
+        latest_dist = Reading.objects.filter(sensor_id=self.level_sensor.id).latest("reading_datetime").value
+        max_level = (self.height * self.width * self.length * 0.000264172)
+        percent = (latest_dist - self.sensor_dist) / self.height
+        current = max_level * percent
+        return max_level, current, percent*100
 
-
-
-
-
-
+    def __str__(self):
+        return self.tank_name
 
 
 

@@ -18,4 +18,6 @@ class PlantAdmin(admin.ModelAdmin):
     list_display = ["plant_type", "plant_status", "date_sprouted"]
 
 
-admin.register(models.PlantMedium)
+@admin.register(models.PlantMedium)
+class PlantMediumAdmin(admin.ModelAdmin):
+    list_display = ["medium_name", ]

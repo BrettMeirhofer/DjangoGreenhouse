@@ -26,7 +26,6 @@ class DeviceStatusAdmin(admin.ModelAdmin):
 def make_thumb(modeladmin, request, queryset):
     for x in list(queryset):
         x.make_thumbnail()
-        x.save()
 
 
 @admin.register(models.DatedImage)
@@ -35,7 +34,11 @@ class DatedImageAdmin(admin.ModelAdmin):
     actions = [make_thumb]
 
 
+@admin.register(models.Tank)
+class TankAdmin(admin.ModelAdmin):
+    list_display = ["tank_name"]
+
+
 admin.site.register(models.SensorType)
 admin.site.register(models.Device)
 admin.site.register(models.Camera)
-admin.site.register(models.Tank)
