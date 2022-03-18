@@ -20,10 +20,13 @@ class DeviceStatusAdmin(admin.ModelAdmin):
     list_display = ["device", "status", "status_datetime"]
 
 
+# Looking for a way to bulk save but .update() doesn't work because the field changes are in the func params
+# Instead of saving any modified fields
 @admin.action(description='Create thumbnails for images')
 def make_thumb(modeladmin, request, queryset):
     for x in list(queryset):
         x.make_thumbnail()
+        x.save()
 
 
 @admin.register(models.DatedImage)

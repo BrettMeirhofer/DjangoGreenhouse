@@ -87,6 +87,6 @@ def upload_image(request):
         file_uploaded = request.FILES.get('file_uploaded')
         cam_id = request.GET.get('id', '')
         image_model = models.DatedImage(image=file_uploaded, date=datetime.datetime.now().date(), camera_id=int(cam_id))
-        image_model.save()
         image_model.make_thumbnail()
+        image_model.save()
     return HttpResponse("Success")
