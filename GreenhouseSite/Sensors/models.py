@@ -74,7 +74,8 @@ class DatedImage(models.Model):
         image = Image.open(self.image)
         image.thumbnail(thumb_size, Image.ANTIALIAS)
 
-        thumb_name, thumb_extension = os.path.splitext(self.image.name)
+        thumb_name = os.path.basename(self.image.name)
+        thumb_extension = os.path.splitext(thumb_name)[1]
         thumb_extension = thumb_extension.lower()
 
         thumb_filename = thumb_name + '_thumb' + thumb_extension
