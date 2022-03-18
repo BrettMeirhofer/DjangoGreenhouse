@@ -22,7 +22,8 @@ class DeviceStatusAdmin(admin.ModelAdmin):
 
 @admin.action(description='Create thumbnails for images')
 def make_thumb(modeladmin, request, queryset):
-    queryset.make_thumbnail()
+    for x in queryset:
+        x.make_thumbnail()
 
 
 @admin.register(models.DatedImage)
