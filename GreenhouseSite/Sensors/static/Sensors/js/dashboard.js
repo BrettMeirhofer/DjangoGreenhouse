@@ -15,8 +15,8 @@ $(document).ready(function () {
             $("#humd_out").text(data.readings[3] + "%")
 
             water_text = $("#water")
-            water_text.text(data.readings[4] + "%")
             water_percent = Math.max(data.readings[4], 0)
+            water_text.text(water_percent + "%")
             $("#air_tank").css("height", 100 - water_percent)
             $("#water_tank").css("height", water_percent - 5)
             $("#Soil1").text(data.readings[5])

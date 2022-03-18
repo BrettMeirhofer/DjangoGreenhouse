@@ -20,9 +20,15 @@ class DeviceStatusAdmin(admin.ModelAdmin):
     list_display = ["device", "status", "status_datetime"]
 
 
+@admin.action(description='Create thumbnails for images')
+def make_thumb(modeladmin, request, queryset):
+    queryset.make_thumbnail()
+
+
 @admin.register(models.DatedImage)
 class DatedImageAdmin(admin.ModelAdmin):
-    list_display = ["date"]
+    list_display = ["date", "camera"]
+    actions = [make_thumb]
 
 
 admin.site.register(models.SensorType)

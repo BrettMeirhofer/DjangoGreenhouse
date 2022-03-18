@@ -1,6 +1,9 @@
 from django.db import models
 import os
+import os.path
+from PIL import Image
 from io import BytesIO
+from django.core.files.base import ContentFile
 
 
 class SensorType(models.Model):
@@ -57,6 +60,7 @@ class Camera(models.Model):
 class DatedImage(models.Model):
     date = models.DateField()
     image = models.ImageField(upload_to='images/')
+    thumb = models.ImageField(upload_to='images/thumbs/', null=True, blank=True)
     camera = models.ForeignKey(Camera, on_delete=models.SET_NULL, null=True, blank=True)
 
     def get_header(self):
@@ -64,31 +68,25 @@ class DatedImage(models.Model):
             return str(self.camera) + " " + str(self.date)
         else:
             return str(self.date)
-    """
-    thumbnail = models.ImageField(upload_to='thumbs', editable=False)
-
-    def save(self, *args, **kwargs):
-
-        if not self.make_thumbnail():
-            # set to a default thumbnail
-            raise Exception('Could not create thumbnail - is the file type valid?')
-
-        super(DatedImage, self).save(*args, **kwargs)
 
     def make_thumbnail(self):
-
+        thumb_size = 160, 120
         image = Image.open(self.image)
-        image.thumbnail(THUMB_SIZE, Image.ANTIALIAS)
+        image.thumbnail(thumb_size, Image.ANTIALIAS)
 
         thumb_name, thumb_extension = os.path.splitext(self.image.name)
         thumb_extension = thumb_extension.lower()
 
         thumb_filename = thumb_name + '_thumb' + thumb_extension
 
-        if thumb_extension == '.png':
+        if thumb_extension in ['.jpg', '.jpeg']:
+            FTYPE = 'JPEG'
+        elif thumb_extension == '.gif':
+            FTYPE = 'GIF'
+        elif thumb_extension == '.png':
             FTYPE = 'PNG'
-
-
+        else:
+            return False  # Unrecognized file type
 
         # Save thumbnail to in-memory file as StringIO
         temp_thumb = BytesIO()
@@ -96,9 +94,40 @@ class DatedImage(models.Model):
         temp_thumb.seek(0)
 
         # set save=False, otherwise it will run in an infinite loop
-        self.thumbnail.save(thumb_filename, ContentFile(temp_thumb.read()), save=False)
+        self.thumb.save(thumb_filename, ContentFile(temp_thumb.read()), save=False)
         temp_thumb.close()
 
         return True
-    """
+
+
+class Tank(models.Model):
+    level_sensor = models.ForeignKey(Sensor, on_delete=models.RESTRICT, null=True, blank=True, related_name="level")
+    ph_sensor = models.ForeignKey(Sensor, on_delete=models.RESTRICT, null=True, blank=True, related_name="ph")
+    ppm_sensor = models.ForeignKey(Sensor, on_delete=models.RESTRICT, null=True, blank=True, related_name="ppm")
+    height = models.FloatField(max_length=40, null=True, blank=True)
+    width = models.FloatField(max_length=40, null=True, blank=True)
+    length = models.FloatField(max_length=40, null=True, blank=True)
+    sensor_dist = models.FloatField(max_length=40, null=True, blank=True)
+    default_ppm = models.IntegerField(default=150)
+    default_ph = models.FloatField(max_length=40, default=7)
+
+    target_ppm = models.IntegerField(default=500)
+    target_ph = models.FloatField(max_length=40, default=6.5)
+
+
+    n = models.IntegerField(default=0)
+    p = models.IntegerField(default=0)
+    k = models.IntegerField(default=0)
+
+
+
+
+
+
+
+
+
+
+
+
 
