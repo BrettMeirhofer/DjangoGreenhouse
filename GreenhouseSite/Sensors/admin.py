@@ -30,7 +30,7 @@ def make_thumb(modeladmin, request, queryset):
 
 @admin.register(models.DatedImage)
 class DatedImageAdmin(admin.ModelAdmin):
-    list_display = ["name", "date", "camera", "category", "sequence"]
+    list_display = ["date", "camera", "name", "category", "sequence"]
     actions = [make_thumb]
     readonly_fields = ('image_tag',)
 

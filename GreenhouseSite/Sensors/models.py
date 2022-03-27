@@ -68,7 +68,7 @@ class DatedImage(models.Model):
     camera = models.ForeignKey(Camera, on_delete=models.SET_NULL, null=True, blank=True)
 
     def image_tag(self):
-        return mark_safe('<img src="/images/%s" width="150" height="150" />' % (self.image))
+        return mark_safe('<img src="%s" width="150" height="150" />' % (self.image))
 
     image_tag.short_description = 'Image'
 
