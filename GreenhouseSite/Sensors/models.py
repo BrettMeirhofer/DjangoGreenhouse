@@ -4,6 +4,7 @@ import os.path
 from PIL import Image
 from io import BytesIO
 from django.core.files.base import ContentFile
+from django.utils.html import mark_safe
 
 
 class SensorType(models.Model):
@@ -61,7 +62,15 @@ class DatedImage(models.Model):
     date = models.DateField()
     image = models.ImageField(upload_to='images/')
     thumb = models.ImageField(upload_to='images/thumbs/', null=True, blank=True)
+    name = models.CharField(max_length=40, default="")
+    category = models.CharField(max_length=40, default="")
+    sequence = models.IntegerField(default=1)
     camera = models.ForeignKey(Camera, on_delete=models.SET_NULL, null=True, blank=True)
+
+    def image_tag(self):
+        return mark_safe('<img src="/images/%s" width="150" height="150" />' % (self.image))
+
+    image_tag.short_description = 'Image'
 
     def get_header(self):
         if self.camera is not None:

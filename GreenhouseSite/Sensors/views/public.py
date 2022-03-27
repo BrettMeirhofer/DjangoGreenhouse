@@ -26,3 +26,9 @@ def greenhouse_status(request):
 
 def graphs_page(request):
     return render(request, "admin/graphs_page.html")
+
+
+def progress_view(request):
+    images = models.DatedImage.objects.filter(category="progress").order_by("sequence")
+    return render(request, "admin/progress.html", {'images': images})
+
