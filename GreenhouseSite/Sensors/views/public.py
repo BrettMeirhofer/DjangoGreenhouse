@@ -5,7 +5,7 @@ import Plants
 
 
 def gallery_view(request):
-    images = models.DatedImage.objects.order_by("-date")
+    images = models.DatedImage.objects.filter(category="gallery").order_by("-date")
     return render(request, "admin/gallery.html", {'images': images})
 
 

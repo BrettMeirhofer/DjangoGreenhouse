@@ -28,10 +28,15 @@ def make_thumb(modeladmin, request, queryset):
         x.make_thumbnail()
 
 
+@admin.action(description='Sets image categories to gallery')
+def set_category_to_gallery(modeladmin, request, queryset):
+    queryset.update(category="gallery")
+
+
 @admin.register(models.DatedImage)
 class DatedImageAdmin(admin.ModelAdmin):
     list_display = ["date", "camera", "name", "category", "sequence"]
-    actions = [make_thumb]
+    actions = [make_thumb, set_category_to_gallery]
     readonly_fields = ('image_tag',)
 
 
