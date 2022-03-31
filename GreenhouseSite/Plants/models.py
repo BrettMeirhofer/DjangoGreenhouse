@@ -48,7 +48,7 @@ class Plant(models.Model):
     parent2 = models.ForeignKey('self', null=True, blank=True, related_name='children2', on_delete=models.SET_NULL)
     clone = models.BooleanField(default=False)
 
-    planter_capacity = models.IntegerField(default=0)
+    planter_capacity = models.FloatField(default=0)
 
     date_sprouted = models.DateField(null=True, blank=True)
     date_died = models.DateField(null=True, blank=True)
