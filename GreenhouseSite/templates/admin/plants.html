@@ -12,19 +12,23 @@
         <h1>Greenhouse Plants</h1>
         <table class="center">
             <tr>
+                <th>ID</th>
                 <th>Type</th>
                 <th>Status</th>
-                <th>Sprout Date</th>
+                <th>Medium</th>
+                <th>Medium #Gallons</th>
                 <th>Age(Days)</th>
-                <th>Soil Status</th>
+                <th>Clone</th>
             </tr>
             {% for plant in plants %}
                 <tr>
+                    <td>#{{plant.type_id}}</td>
                     <td>{{plant.plant_type}}</td>
                     <td>{{plant.plant_status}}</td>
-                    <td>{{plant.date_sprouted}}</td>
+                    <td>{{plant.medium}}</td>
+                    <td>{{plant.planter_capacity}}</td>
                     <td>{{plant.age}}</td>
-                    <td>{{plant.soil_status}}</td>
+                    <td>{{plant.clone}}</td>
                 </tr>
             {% endfor %}
         </table>

@@ -35,6 +35,7 @@ def set_category_to_gallery(modeladmin, request, queryset):
 
 @admin.register(models.DatedImage)
 class DatedImageAdmin(admin.ModelAdmin):
+    list_filter = ["category", "camera"]
     list_display = ["date", "camera", "name", "category", "sequence"]
     actions = [make_thumb, set_category_to_gallery]
     readonly_fields = ('image_tag',)
