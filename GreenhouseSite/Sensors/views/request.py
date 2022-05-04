@@ -57,15 +57,9 @@ def request_sensor_data(request):
     humd = models.Reading.objects.filter(sensor__sensor_name="Greenhouse Humidity").latest("reading_datetime").value
     temp_out = models.Reading.objects.filter(sensor__sensor_name="Outdoor Temp").latest("reading_datetime").value
     humd_out = models.Reading.objects.filter(sensor__sensor_name="Outdoor Humd").latest("reading_datetime").value
-    water = models.Reading.objects.filter(sensor__sensor_name="Reservoir Sonar").latest("reading_datetime").value
+    max_level, current, percent = models.Tank.objects.get(id=1).get_status_dict()
     heater = models.DeviceStatus.objects.filter(device__device_name="Heater").latest("status_datetime").status
-    json_output = {"readings": [temp, humd, temp_out, humd_out, int(water)], "heater": heater}
-    soil_sensors = [5, 6, 7]
-
-    for sensor in soil_sensors:
-        moisture = models.Reading.objects.filter(sensor_id=sensor).latest("reading_datetime").value
-        status = helper.find_soil_status(moisture)
-        json_output["readings"].append(status)
+    json_output = {"readings": [temp, humd, temp_out, humd_out, percent], "heater": heater}
 
     return HttpResponse(json.dumps(json_output), content_type="application/json")
 

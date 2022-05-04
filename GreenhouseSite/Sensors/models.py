@@ -136,7 +136,8 @@ class Tank(models.Model):
         max_level = (self.height * self.width * self.length * 0.000264172)
         percent = (latest_dist - self.sensor_dist) / self.height
         current = max_level * percent
-        return max_level, current, percent*100
+        percent = round(percent*100, 2)
+        return max_level, current, percent
 
     def __str__(self):
         return self.tank_name
