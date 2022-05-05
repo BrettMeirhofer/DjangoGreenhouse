@@ -134,7 +134,7 @@ class Tank(models.Model):
     def get_status_dict(self):
         latest_dist = Reading.objects.filter(sensor_id=self.level_sensor.id).latest("reading_datetime").value
         max_level = (self.height * self.width * self.length * 0.000264172)
-        percent = (latest_dist - self.sensor_dist) / self.height
+        percent = 1 - ((latest_dist - self.sensor_dist) / self.height)
         current = max_level * percent
         percent = round(percent*100, 2)
         return max_level, current, percent
