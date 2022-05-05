@@ -19,7 +19,6 @@ $(document).ready(function () {
             water_text.text(water_percent + "%")
             $("#air_tank").css("height", 100 - water_percent)
             $("#water_tank").css("height", water_percent - 5)
-
             if (data.heater){
                 heater_status = "ON"
                 $("#heater_on").css("visibility", "visible")
