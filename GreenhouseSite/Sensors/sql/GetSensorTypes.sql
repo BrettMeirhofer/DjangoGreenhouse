@@ -1,1 +1,1 @@
-SELECT * FROM Sensors_SensorTypehh
+SELECT * FROM Sensors_sensortype
