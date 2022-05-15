@@ -20,7 +20,7 @@ def get_humd_series(request):
 
 # Returns a json of avg water level per hour for last 10 hours
 def get_water_series(request):
-    response_data = helper.sensor_series([4], int)
+    response_data = helper.sensor_series([1], int, file="AvgTankLevel.sql")
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
@@ -43,7 +43,7 @@ def get_humd_series_days(request):
 
 # Returns a json of avg water level per hour for last 10 hours
 def get_water_series_days(request):
-    response_data = helper.sensor_series([4], int, increment="d")
+    response_data = helper.sensor_series([1], int, increment="d", file="AvgTankLevel.sql")
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
