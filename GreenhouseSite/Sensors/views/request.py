@@ -26,7 +26,7 @@ def get_water_series(request):
 
 def get_heater_series(request):
     response_data = helper.sensor_series([1], lambda x: x/10, file="DeviceUptime.sql")
-    return HttpResponse(json.dumps(response_data), content_type="application/json")
+    return HttpResponse(json.dumps(response_data, cls=DjangoJSONEncoder), content_type="application/json")
 
 
 # Returns a json of avg temp per hour for last 10 days
