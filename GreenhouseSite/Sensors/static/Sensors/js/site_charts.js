@@ -35,7 +35,7 @@ function get_days_string(deltas){
     times = []
     deltas.forEach((element => {
         current_time = new Date(element)
-        current_time = (today.getMonth()+1) + "/" + today.getDate()
+        current_time = (current_time.getMonth()+1) + "/" + current_time.getDate()
         times.push(current_time)
     }));
     return times
