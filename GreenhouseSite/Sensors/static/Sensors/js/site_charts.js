@@ -14,7 +14,7 @@ function deltas_to_days(deltas){
     deltas.forEach((element => {
         today = new Date()
         today.setDate(today.getDate() - parseInt(element))
-        current_time = (today.getMonth()+1) + "/" + today.getDate()
+        current_time = (current_time.getMonth()+1) + "/" + current_time.getDate()
         times.push(current_time)
     }));
     return times
