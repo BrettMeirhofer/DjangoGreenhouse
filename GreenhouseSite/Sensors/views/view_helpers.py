@@ -64,14 +64,13 @@ def sensor_series(parameters, y_adjust=None, file="AvgReadingSeries.sql", increm
 
     response_data = {"label": [], "y": []}
     for index, row in enumerate(sql_output):
-        label = increment_list[1](row[0])
+        label = row[0]
         response_data["label"].append(label)
         if y_adjust is not None:
             temp_f = y_adjust(row[1])
         else:
             temp_f = row[1]
         response_data["y"].append(temp_f)
-
 
     response_data["y"].reverse()
     response_data["label"].reverse()
