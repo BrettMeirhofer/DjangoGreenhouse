@@ -21,7 +21,13 @@ function deltas_to_days(deltas){
 
 }
 
-function no_parse(deltas){
+function get_hours_string(deltas){
+    times = []
+    deltas.forEach((element => {
+        current_time = Date.parse(element).getHours() + ":00"
+        times.push(current_time)
+    }));
+    return times
 }
 
 

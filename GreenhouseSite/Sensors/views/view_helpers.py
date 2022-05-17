@@ -64,7 +64,7 @@ def sensor_series(parameters, y_adjust=None, file="AvgReadingSeries.sql", increm
 
     response_data = {"label": [], "y": []}
     for index, row in enumerate(sql_output):
-        label = datetime.date.strftime(row[0], "%m/%d/%Y, %H:%M:%S")
+        label = row[0].isoformat()
         response_data["label"].append(label)
         if y_adjust is not None:
             temp_f = y_adjust(row[1])
