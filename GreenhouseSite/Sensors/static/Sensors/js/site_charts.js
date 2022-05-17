@@ -24,7 +24,7 @@ function deltas_to_days(deltas){
 function get_hours_string(deltas){
     times = []
     deltas.forEach((element => {
-        current_time = Date.parse(element)
+        current_time = new Date(Date.parse(element) * 1000)
         console.log(current_time)
         current_time = current_time.getHours() + ":00"
         times.push(current_time)
