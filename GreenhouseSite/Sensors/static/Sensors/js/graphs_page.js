@@ -1,8 +1,8 @@
 $(document).ready(function () {
-    temp_chart(deltas_to_days)
-    humd_chart(deltas_to_days)
-    water_chart(deltas_to_days)
-    heater_chart(deltas_to_days)
+    temp_chart(get_days_string)
+    humd_chart(get_days_string)
+    water_chart(get_days_string)
+    heater_chart(get_days_string)
 
     var x = window.matchMedia("(min-width: 1200px)")
     if (x.matches) {

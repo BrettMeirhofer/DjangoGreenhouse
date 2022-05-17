@@ -33,10 +33,10 @@ $(document).ready(function () {
 
         }
     })
-    temp_chart(deltas_to_time)
-    humd_chart(deltas_to_time)
-    water_chart(deltas_to_time)
-    heater_chart(deltas_to_time)
+    temp_chart(get_hours_string)
+    humd_chart(get_hours_string)
+    water_chart(get_hours_string)
+    heater_chart(get_hours_string)
 
     var x = window.matchMedia("(min-width: 1200px)")
     if (x.matches) {
