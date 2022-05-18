@@ -91,18 +91,18 @@ function generate_line_graph(element, url, title, color, y_title, increment){
     })
 }
 
-function temp_chart(delta_func){
+function temp_chart(increment){
     generate_line_graph("#chart1", "#temp_series", "Greenhouse Temperature", "rgba(200, 150, 0, 1)", "Temperature (F)", increment)
 }
 
-function humd_chart(delta_func){
+function humd_chart(increment){
     generate_line_graph("#chart2", "#humd_series", "Greenhouse Humidity", "rgba(0, 200, 0, 1)", "Humidity %", increment)
 }
 
-function water_chart(delta_func){
+function water_chart(increment){
     generate_line_graph("#chart3", "#water_series", "Greenhouse Water Level", "rgba(0, 0, 200, 1)", "Fill %", increment)
 }
 
-function heater_chart(delta_func){
+function heater_chart(increment){
     generate_line_graph("#chart4", "#heater_series", "Greenhouse Heater Uptime", "rgba(200, 0, 0, 1)", "Uptime %", increment)
 }
