@@ -11,10 +11,10 @@
 {% endblock %}
 
 {% block extrabody %}{{ block.super }}
-    <input type="hidden" id="temp_series" data-url="{% url 'temp_series_days'%}" />
-    <input type="hidden" id="humd_series" data-url="{% url 'humd_series_days'%}" />
-    <input type="hidden" id="water_series" data-url="{% url 'water_series_days'%}" />
-    <input type="hidden" id="heater_series" data-url="{% url 'heater_series_days'%}" />
+    <input type="hidden" id="temp_series" data-url="{% url 'temp_series'%}" />
+    <input type="hidden" id="humd_series" data-url="{% url 'humd_series'%}" />
+    <input type="hidden" id="water_series" data-url="{% url 'water_series'%}" />
+    <input type="hidden" id="heater_series" data-url="{% url 'heater_series'%}" />
     <div class="center">
         <h1>Last 10 Days</h1>
         <canvas id="chart1" class="canvas_graph"></canvas>

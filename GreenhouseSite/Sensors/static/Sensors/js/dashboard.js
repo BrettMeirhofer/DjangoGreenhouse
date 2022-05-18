@@ -33,10 +33,10 @@ $(document).ready(function () {
 
         }
     })
-    temp_chart(get_hours_string)
-    humd_chart(get_hours_string)
-    water_chart(get_hours_string)
-    heater_chart(get_hours_string)
+    temp_chart("h")
+    humd_chart("h")
+    water_chart("h")
+    heater_chart("h")
 
     var x = window.matchMedia("(min-width: 1200px)")
     if (x.matches) {

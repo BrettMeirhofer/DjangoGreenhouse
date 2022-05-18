@@ -8,8 +8,4 @@ urlpatterns = [
     path('humd_series', request.get_humd_series, name='humd_series'),
     path('water_series', request.get_water_series, name='water_series'),
     path('heater_series', request.get_heater_series, name='heater_series'),
-    path('temp_series_days', request.get_temp_series_days, name='temp_series_days'),
-    path('humd_series_days', request.get_humd_series_days, name='humd_series_days'),
-    path('water_series_days', request.get_water_series_days, name='water_series_days'),
-    path('heater_series_days', request.get_heater_series_days, name='heater_series_days'),
 ]

@@ -8,48 +8,31 @@ from django.core.serializers.json import DjangoJSONEncoder
 
 # Returns a json of avg temp per hour for last 10 hours
 def get_temp_series(request):
-    response_data = helper.sensor_series([8], helper.fah_to_cel)
+    response_data = helper.sensor_series([8], helper.fah_to_cel, increment=request.args.get('increment', type=str))
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
 # Returns a json of avg humidity per hour for last 10 hours
 def get_humd_series(request):
-    response_data = helper.sensor_series([9])
+    response_data = helper.sensor_series([9], increment=request.args.get('increment', type=str))
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
-
+"""
 # Returns a json of avg water level per hour for last 10 hours
 def get_water_series(request):
     response_data = helper.sensor_series([1], int, file="AvgTankLevel.sql")
     return HttpResponse(json.dumps(response_data), content_type="application/json")
+"""
 
 
 def get_heater_series(request):
-    response_data = helper.sensor_series([1], lambda x: x/10, file="DeviceUptime.sql")
+    response_data = helper.sensor_series([1], lambda x: x/10, file="DeviceUptime.sql", increment=request.args.get('increment', type=str))
     return HttpResponse(json.dumps(response_data, cls=DjangoJSONEncoder), content_type="application/json")
 
 
-# Returns a json of avg temp per hour for last 10 days
-def get_temp_series_days(request):
-    response_data = helper.sensor_series([8], helper.fah_to_cel, increment="d")
+def get_water_series(request):
+    response_data = helper.sensor_series([1], int, file="AvgTankLevel.sql", increment=request.args.get('increment', type=str))
     return HttpResponse(json.dumps(response_data), content_type="application/json")
-
-
-# Returns a json of avg humidity per hour for last 10 days
-def get_humd_series_days(request):
-    response_data = helper.sensor_series([9], increment="d")
-    return HttpResponse(json.dumps(response_data), content_type="application/json")
-
-
-# Returns a json of avg water level per hour for last 10 hours
-def get_water_series_days(request):
-    response_data = helper.sensor_series([1], int, increment="d", file="AvgTankLevel.sql")
-    return HttpResponse(json.dumps(response_data), content_type="application/json")
-
-
-def get_heater_series_days(request):
-    response_data = helper.sensor_series([1], lambda x: x/10, "DeviceUptime.sql", increment="d")
-    return HttpResponse(json.dumps(response_data, cls=DjangoJSONEncoder), content_type="application/json")
 
 
 # Returns a json of most recent sensor data / device status

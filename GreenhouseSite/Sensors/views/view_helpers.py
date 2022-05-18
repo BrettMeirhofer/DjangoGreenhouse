@@ -17,24 +17,6 @@ def connection_query(filename, parameters):
     return sql_output
 
 
-def get_delta_seconds(target_datetime, current_time=datetime.datetime.utcnow()):
-    return round((current_time - target_datetime).seconds, 0)
-
-
-def get_delta_hours(target_datetime, current_time=datetime.datetime.utcnow()):
-    target_datetime = target_datetime.replace(minute=0, second=0)
-    return round((current_time - target_datetime).seconds/3600)
-
-
-def get_delta_days(target_datetime, current_time=datetime.datetime.utcnow()):
-    target_datetime = target_datetime.replace(hour=0, minute=0, second=0)
-    return round((current_time - target_datetime).days, 0)
-
-
-def get_delta_months(target_datetime, current_time=datetime.datetime.utcnow()):
-    return round((current_time.month - target_datetime.month), 0)
-
-
 def bulk_readings(temp_data, sensors, current_time):
     reading_objects = []
     for index, reading in enumerate(temp_data["readings"]):
@@ -87,7 +69,7 @@ def find_soil_status(value):
 
 
 def get_increment(key):
-    increment_dict = {"h": ["'%Y%m%d%H'", get_delta_hours], "d": ["'%Y%m%d'", get_delta_days], "m": ["'%Y%m'", get_delta_days]}
+    increment_dict = {"h": ["'%Y%m%d%H'"], "d": ["'%Y%m%d'"], "m": ["'%Y%m'"]}
     return increment_dict[key]
 
 
