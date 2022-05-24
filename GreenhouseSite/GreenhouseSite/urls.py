@@ -21,6 +21,7 @@ from portfolio.views import main_page
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', main_page, name='portfolio'),
+    path("Sensors/", include("Sensors.urls")),
 ]
 
 
