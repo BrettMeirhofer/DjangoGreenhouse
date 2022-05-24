@@ -46,6 +46,7 @@ else:
     OUTDOOR_KEY = sitevars.SiteVars.OUTDOOR_KEY
 
 INSTALLED_APPS = [
+    'portfolio.apps.PortfolioConfig',
     'Sensors.apps.SensorsConfig',
     'Plants.apps.PlantsConfig',
     'GreenhouseSite.apps.GreenhouseAdminConfig',
