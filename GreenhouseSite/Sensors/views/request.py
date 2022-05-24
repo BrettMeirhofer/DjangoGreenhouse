@@ -8,13 +8,13 @@ from django.core.serializers.json import DjangoJSONEncoder
 
 # Returns a json of avg temp per hour for last 10 hours
 def get_temp_series(request):
-    response_data = helper.sensor_series([8], helper.fah_to_cel, increment=request.GET.get('increment', ''))
+    response_data = helper.sensor_series([8], helper.fah_to_cel, increment=request.GET.get('increment', 'h'))
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
 # Returns a json of avg humidity per hour for last 10 hours
 def get_humd_series(request):
-    response_data = helper.sensor_series([9], increment=request.GET.get('increment', ''))
+    response_data = helper.sensor_series([9], increment=request.GET.get('increment', 'h'))
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 """
@@ -26,12 +26,12 @@ def get_water_series(request):
 
 
 def get_heater_series(request):
-    response_data = helper.sensor_series([1], lambda x: x/10, file="DeviceUptime.sql", increment=request.GET.get('increment', ''))
+    response_data = helper.sensor_series([1], lambda x: x/10, file="DeviceUptime.sql", increment=request.GET.get('increment', 'h'))
     return HttpResponse(json.dumps(response_data, cls=DjangoJSONEncoder), content_type="application/json")
 
 
 def get_water_series(request):
-    response_data = helper.sensor_series([1], int, file="AvgTankLevel.sql", increment=request.GET.get('increment', ''))
+    response_data = helper.sensor_series([1], int, file="AvgTankLevel.sql", increment=request.GET.get('increment', 'h'))
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 

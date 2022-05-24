@@ -1,0 +1,3 @@
+[submodule "GreenhouseSite/portfolio"]
+	path = GreenhouseSite/portfolio
+	url = https://github.com/BrettMeirhofer/DjangoPortfolio.git
