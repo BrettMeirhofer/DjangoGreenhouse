@@ -16,11 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from Sensors.views import public
-from portfolio.views import main_page
+from portfolio.views import main_page, view_project
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', main_page, name='portfolio'),
+    path('project/<int:target_id>/', view_project, name='project'),
     path("Sensors/", include("Sensors.urls")),
 ]
 
